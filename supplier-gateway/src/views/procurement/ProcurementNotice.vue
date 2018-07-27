@@ -84,7 +84,7 @@
                 },
                 notices: [
                     {
-                        name:"品高XX采购公告",
+                        name:"品高X采购公告",
 						type:"软件服务",
                         status:"招标中",
                         time:"2018-7-26 23:21"
