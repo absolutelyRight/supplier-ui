@@ -9,6 +9,10 @@ import Page4 from './views/nav2/Page4.vue'
 import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import Notice from './views/information/Notice.vue'
+import NoticeInformation from './views/information/NoticeInformation.vue'
+import ProcurementNotice from './views/procurement/ProcurementNotice.vue'
+import BidingManage from './views/manage/BidingManage.vue'
+import BidManage from './views/manage/BidManage.vue'
 import SysIndex from './views/index/sysIndex.vue'
 import echarts from './views/charts/echarts.vue'
 import Vue from 'vue'
@@ -47,7 +51,7 @@ let routes = [
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/notice', component: Notice, name: '消息通知' },
-            { path: '/form', component: Form, name: '公告信息' },
+            { path: '/noticeInformation', component: NoticeInformation, name: '公告信息' },
         ]
     },
     {
@@ -58,7 +62,7 @@ let routes = [
         leaf: true,
         iconCls: 'iconfont el-icon-erp-createtask_fill',//图标样式class
         children: [
-            { path: '/user', component: user, name: '采购公告' },
+            { path: '/procurementNotice', component: ProcurementNotice, name: '采购公告' },
         ]
     },
     {
@@ -68,8 +72,8 @@ let routes = [
         role: ['admin','user'],
         iconCls: 'iconfont el-icon-erp-shenfenzheng',//图标样式class
         children: [
-            { path: '/table', component: Table, name: '投标管理' },
-            { path: '/form', component: Form, name: '中标管理' },
+            { path: '/bidingManage', component: BidingManage, name: '投标管理' },
+            { path: '/bidManage', component: BidManage, name: '中标管理' },
         ]
     },
     {
@@ -83,6 +87,7 @@ let routes = [
             { path: '/form', component: Form, name: '信息修改' },
         ]
     },
+
     // {
     //     path: '/',
     //     component: Home,
