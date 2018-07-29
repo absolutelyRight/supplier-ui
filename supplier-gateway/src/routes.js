@@ -15,6 +15,9 @@ import BidingManage from './views/manage/BidingManage.vue'
 import BidManage from './views/manage/BidManage.vue'
 import SysIndex from './views/index/sysIndex.vue'
 import echarts from './views/charts/echarts.vue'
+import UserInfo from './views/setting/UserInfo.vue'
+import SettingInfo from './views/setting/SettingInfo.vue'
+import Register from './views/register/Register.vue'
 import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
@@ -83,8 +86,21 @@ let routes = [
         role: ['admin','user'],
         iconCls: 'el-icon-setting',//图标样式class
         children: [
-            { path: '/table', component: Table, name: '个人信息' },
-            { path: '/form', component: Form, name: '信息修改' },
+            { path: '/userInfo', component: UserInfo, name: '个人信息' },
+            { path: '/settingInfo', component: SettingInfo, name: '信息修改' },
+        ]
+    },
+
+    {
+        path: '/',
+        component: Home,
+        name: '注册',
+        role: ['admin','user'],
+        leaf: true,
+        hidden: true,
+        iconCls: 'iconfont el-icon-erp-createtask_fill',//图标样式class
+        children: [
+            { path: '/register', component: Register, name: '注册' },
         ]
     },
 

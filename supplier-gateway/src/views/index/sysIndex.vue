@@ -16,7 +16,7 @@
         <div class="info_list">
             <el-row>
                 <el-col :span="14" style="margin-right: 9px"><div class="grid-content">
-                    <el-tabs type="border-card">
+                    <el-tabs type="border-card" @tab-click="tabClick">
                         <el-tab-pane label="招标公告">
                             <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
                                 <el-collapse-item title="品高软件服务器采购招标公告" name="1">
@@ -44,7 +44,9 @@
                         </el-tab-pane>
                         <el-tab-pane label="中标公告">配置管理</el-tab-pane>
                         <el-tab-pane label="通知">角色管理</el-tab-pane>
-                        <a href="#" style="float: right">更多</a>
+                        <router-link :to="{path:'/noticeInformation',query: {noticeType: informationType}}">
+                            <a href="#" style="float: right">更多</a>
+                        </router-link>
                     </el-tabs>
                 </div></el-col>
                 <el-col style="width: 40%;margin-left: 9px"><div class="grid-content bg-purple">
@@ -74,7 +76,9 @@
                                 </el-collapse-item>
                             </el-collapse>
                         </el-tab-pane>
-                        <a href="#" style="float: right">更多</a>
+                        <router-link :to="{path:'/procurementNotice'}">
+                            <a href="#" style="float: right">更多</a>
+                        </router-link>
                     </el-tabs>
                     <el-form v-if=!this.isLogin :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
                         <h3 class="title">系统登录</h3>
@@ -87,7 +91,10 @@
                         <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
                         <el-form-item style="width:100%;padding-left: 25px">
                             <el-button type="primary" style="width:40%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
-                            <el-button type="success" style="width:40%;">注册</el-button>
+
+                            <router-link :to="{path:'/register'}">
+                                <el-button type="success" style="width:40%;">注册</el-button>
+                            </router-link>
                             <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
                         </el-form-item>
                     </el-form>
@@ -165,6 +172,7 @@
                     status: '已截至'
                 }],
                 isLogin: false,
+                informationType: '招标公告',
                 logining: false,
                 ruleForm2: {
                     account: 'admin',
@@ -188,6 +196,9 @@
             this.isLogin = !!user;
         },
         methods: {
+            tabClick(se){
+                this.informationType = se.label;
+            },
             handleSubmit2(ev) {
                 var _this = this;
                 this.$refs.ruleForm2.validate((valid) => {

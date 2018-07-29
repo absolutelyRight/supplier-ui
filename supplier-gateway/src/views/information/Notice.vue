@@ -20,7 +20,7 @@
 			</el-table-column>
 			<el-table-column label="详情" min-width="200">
 				<template slot-scope="scope">
-					<el-button size="small">查看详情</el-button>
+					<el-button size="small" type="text" @click="openInfo(scope.row.info)">查看详情</el-button>
 				</template>
 			</el-table-column>
 			<el-table-column prop="creater" label="发布人" min-width="200">
@@ -46,9 +46,7 @@
 </template>
 
 <script>
-    import util from '../../common/js/util'
-    //import NProgress from 'nprogress'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+    import { removeUser} from '../../api/api';
 
     export default {
         data() {
@@ -60,27 +58,32 @@
                     {
                         title:"品高XX公告",
                         time:"2018-7-26 15:50",
-                        creater:"完全正确"
+                        creater:"完全正确",
+						info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     },
                     {
                         title:"品高XX公告",
                         time:"2018-7-26 15:50",
-                        creater:"完全正确"
+                        creater:"完全正确",
+                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     },
                     {
                         title:"品高XX公告",
                         time:"2018-7-26 15:50",
-                        creater:"完全正确"
+                        creater:"完全正确",
+                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     },
                     {
                         title:"品高XX公告",
                         time:"2018-7-26 15:50",
-                        creater:"完全正确"
+                        creater:"完全正确",
+                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     },
                     {
                         title:"品高XX公告",
                         time:"2018-7-26 15:50",
-                        creater:"完全正确"
+                        creater:"完全正确",
+                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     }
                 ],
                 total: 0,
@@ -131,6 +134,11 @@
             //获取用户列表
             getUsers() {
 
+            },
+            openInfo(info) {
+                this.$alert('<strong>这是 <i>'+ info +'</i> 片段</strong>', '详情', {
+                    dangerouslyUseHTMLString: true
+                });
             },
             //删除
             handleDel: function (index, row) {

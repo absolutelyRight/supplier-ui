@@ -1,6 +1,14 @@
 <template>
   <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
+    <el-form-item prop="role">
+      <el-select v-model="ruleForm2.role" placeholder="请选择您的角色" style="width: 100%;">
+        <el-option label="普通用户" value="普通用户"></el-option>
+        <el-option label="采购人员" value="采购人员"></el-option>
+        <el-option label="采购经理" value="采购经理"></el-option>
+        <el-option label="管理员" value="管理员"></el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
@@ -24,7 +32,8 @@
         logining: false,
         ruleForm2: {
           account: 'admin',
-          checkPass: '123456'
+          checkPass: '123456',
+            role: ''
         },
         rules2: {
           account: [
@@ -34,7 +43,10 @@
           checkPass: [
             { required: true, message: '请输入密码', trigger: 'blur' },
             //{ validator: validaePass2 }
-          ]
+          ],
+            role: [
+                { required: true, message: '请选择角色', trigger: 'change' },
+            ]
         },
         checked: true
       };
@@ -62,7 +74,7 @@
                 });
               } else {
                 sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/table' });
+                this.$router.push({ path: '/' });
               }
             });
           } else {

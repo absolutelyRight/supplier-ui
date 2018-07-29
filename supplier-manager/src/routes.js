@@ -1,12 +1,27 @@
 import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
+import Review from './views/review/Review.vue'
+import InfoNotice from './views/information/InfoNotice.vue'
+import NoticeManage from './views/manage/NoticeManage.vue'
+import SupplierManage from './views/manage/SupplierManage.vue'
+import DemandExamine from './views/purchase/DemandExamine.vue'
+import DemandInit from './views/purchase/DemandInit.vue'
+import DemandNotice from './views/purchase/DemandNotice.vue'
+import EvaluateManager from './views/purchase/EvaluateManager.vue'
+import TenderManager from './views/purchase/TenderManager.vue'
+import AddSupplier from './views/manage/AddSupplier.vue'
+import AddNotice from './views/manage/AddNotice.vue'
+import AddDemand from './views/purchase/AddDemand.vue'
+import AddDemandNotice from './views/purchase/AddDemandNotice.vue'
+import AddAccount from  './views/account/AddAccount.vue'
+
+
 import Main from './views/Main.vue'
 import Table from './views/nav1/Table.vue'
 import Form from './views/nav1/Form.vue'
 import user from './views/nav1/user.vue'
 import Page4 from './views/nav2/Page4.vue'
-import Review from './views/review/Review.vue'
 import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
@@ -30,51 +45,138 @@ let routes = [
         component: Home,
         name: '审核',
         iconCls: 'fa fa-id-card-o',
-        children: [
-            { path: '/review', component: Review, name: '供应商审核' }
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '导航一',
-        iconCls: 'el-icon-message',//图标样式class
-        children: [
-            { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' },
-            { path: '/form', component: Form, name: 'Form' },
-            { path: '/user', component: user, name: '列表' },
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '导航二',
-        iconCls: 'fa fa-id-card-o',
-        children: [
-            { path: '/page4', component: Page4, name: '页面4' },
-            { path: '/page5', component: Page5, name: '页面5' }
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '',
-        iconCls: 'fa fa-address-card',
         leaf: true,//只有一个节点
         children: [
-            { path: '/page6', component: Page6, name: '导航三' }
+            { path: '/', component: Review, name: '供应商审核' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: 'Charts',
-        iconCls: 'fa fa-bar-chart',
+        name: '消息通知',
+        iconCls: 'fa fa-id-card-o',
+        leaf: true,//只有一个节点
         children: [
-            { path: '/echarts', component: echarts, name: 'echarts' }
+            { path: '/infoNotice', component: InfoNotice, name: '消息通知' }
         ]
     },
+    {
+        path: '/',
+        component: Home,
+        name: '供应商管理',
+        iconCls: 'fa fa-id-card-o',
+        leaf: true,//只有一个节点
+        hidden: true,
+        children: [
+            { path: '/addSupplier', component: AddSupplier, name: '添加供应商' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '需求发起',
+        iconCls: 'fa fa-id-card-o',
+        leaf: true,//只有一个节点
+        hidden: true,
+        children: [
+            { path: '/addDemand', component: AddDemand, name: '添加需求' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '需求公告',
+        iconCls: 'fa fa-id-card-o',
+        leaf: true,//只有一个节点
+        hidden: true,
+        children: [
+            { path: '/addDemandNotice', component: AddDemandNotice, name: '添加公告' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '公告管理',
+        iconCls: 'fa fa-id-card-o',
+        leaf: true,//只有一个节点
+        hidden: true,
+        children: [
+            { path: '/addNotice', component: AddNotice, name: '添加公告' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '管理',
+        iconCls: 'el-icon-message',//图标样式class
+        children: [
+            { path: '/supplierManage', component: SupplierManage, name: '供应商管理' },
+            { path: '/noticeManage', component: NoticeManage, name: '公告管理' },
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '采购',
+        iconCls: 'el-icon-message',//图标样式class
+        children: [
+            { path: '/demandInit', component: DemandInit, name: '需求发起' },
+            { path: '/demandExamine', component: DemandExamine, name: '需求审批' },
+            { path: '/demandNotice', component: DemandNotice, name: '需求公告' },
+            { path: '/tenderManager', component: TenderManager, name: '招标管理' },
+            // { path: '/evaluateManager', component: EvaluateManager, name: '评价管理' },
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '账户',
+        iconCls: 'fa fa-id-card-o',
+        children: [
+            { path: '/addAccount', component: AddAccount, name: '添加账户' }
+        ]
+    },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '导航一',
+    //     iconCls: 'el-icon-message',//图标样式class
+    //     children: [
+    //         { path: '/main', component: Main, name: '主页', hidden: true },
+    //         { path: '/table', component: Table, name: 'Table' },
+    //         { path: '/form', component: Form, name: 'Form' },
+    //         { path: '/user', component: user, name: '列表' },
+    //     ]
+    // },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '导航二',
+    //     iconCls: 'fa fa-id-card-o',
+    //     children: [
+    //         { path: '/page4', component: Page4, name: '页面4' },
+    //         { path: '/page5', component: Page5, name: '页面5' }
+    //     ]
+    // },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: '',
+    //     iconCls: 'fa fa-address-card',
+    //     leaf: true,//只有一个节点
+    //     children: [
+    //         { path: '/page6', component: Page6, name: '导航三' }
+    //     ]
+    // },
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: 'Charts',
+    //     iconCls: 'fa fa-bar-chart',
+    //     children: [
+    //         { path: '/echarts', component: echarts, name: 'echarts' }
+    //     ]
+    // },
     {
         path: '*',
         hidden: true,

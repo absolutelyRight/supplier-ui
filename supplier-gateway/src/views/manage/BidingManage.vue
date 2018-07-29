@@ -10,46 +10,35 @@
 					<el-input v-model="filters.name" placeholder="输入关键字查询"></el-input>
 				</el-form-item>
 			</el-form>
-			<el-form :inline="true" :model="filters">
-
-				<el-dropdown split-button type="primary" @click="handleClick" style="float: right;margin-right: 30px" >
-					软件服务
-					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>软件服务</el-dropdown-item>
-						<el-dropdown-item>硬件服务</el-dropdown-item>
-						<el-dropdown-item>外包服务</el-dropdown-item>
-					</el-dropdown-menu>
-				</el-dropdown>
-				<el-form-item style="float: right;margin-right: 7px">
-					<span>采购类型:</span>
-					<!--<el-button type="primary" v-on:click="getUsers">公告类型</el-button>-->
-				</el-form-item>
-			</el-form>
-			<el-form :inline="true" :model="filters">
-
-				<el-dropdown split-button type="primary" @click="handleClick" style="float: right;margin-right: 30px" >
-					招标中
-					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>招标中</el-dropdown-item>
-						<el-dropdown-item>已截止</el-dropdown-item>
-					</el-dropdown-menu>
-				</el-dropdown>
-				<el-form-item style="float: right;margin-right: 7px">
-					<span>状态:</span>
-					<!--<el-button type="primary" v-on:click="getUsers">公告类型</el-button>-->
-				</el-form-item>
-			</el-form>
 		</el-col>
 
 		<!--列表-->
 		<el-table :data="notices" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column prop="name" label="项目名称" width="300">
 			</el-table-column>
-			<el-table-column prop="type" label="采购类型" min-width="200" sortable>
+			<el-table-column
+					prop="type"
+					label="采购类型"
+					width="180"
+					:filters="[{ text: '软件服务', value: '软件服务' }, { text: '硬件服务', value: '硬件服务' }, { text: '外包服务', value: '外包服务' }]"
+					:filter-method="filterTag"
+					filter-placement="bottom-end">
+				<template slot-scope="scope">
+					<el-tag :type="'primary'" disable-transitions>{{scope.row.type}}</el-tag>
+				</template>
 			</el-table-column>
-			<el-table-column prop="status" label="状态" min-width="200">
+			<el-table-column
+					prop="status"
+					label="状态"
+					min-width="200"
+					:filters="[{ text: '已截止', value: '已截止' }, { text: '招标中', value: '招标中' }]"
+					:filter-method="filterStatus"
+					filter-placement="bottom-end">
+				<template slot-scope="scope">
+					<el-tag :type="scope.row.status === '招标中' ? 'success' : 'danger'" disable-transitions>{{scope.row.status}}</el-tag>
+				</template>
 			</el-table-column>
-			<el-table-column prop="time" label="截止日期" min-width="200">
+			<el-table-column prop="time" label="截止日期" min-width="200" sortable>
 			</el-table-column>
 			<el-table-column label="已上传附件" min-width="200">
 				<template slot-scope="scope">
@@ -78,9 +67,7 @@
 </template>
 
 <script>
-    import util from '../../common/js/util'
-    //import NProgress from 'nprogress'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+    import {  removeUser} from '../../api/api';
 
     export default {
         data() {
@@ -170,6 +157,19 @@
             //获取用户列表
             getUsers() {
 
+            },
+            formatter(row, column) {
+                return row.address;
+            },
+            filterTag(value, row) {
+                return row.type === value;
+            },
+            filterHandler(value, row, column) {
+                const property = column['property'];
+                return row[property] === value;
+            },
+            filterStatus(value, row) {
+                return row.status === value;
             },
             //删除
             handleDel: function (index, row) {

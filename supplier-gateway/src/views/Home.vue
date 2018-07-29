@@ -20,9 +20,7 @@
 			<!--<div class="gateway-menu">-->
 			<aside>
 				<el-menu mode="horizontal" :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-					 unique-opened router v-show="!collapsed" background-color="#545c64"
-						 text-color="#fff"
-						 active-text-color="#ffd04b">
+					 unique-opened router v-show="!collapsed" background-color="#f2f2f2" text-color="#303133" active-text-color="#409EFF">
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden && isContained(role,item.role)">
 						<el-submenu :index="index+''" v-if="!item.leaf">
 							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>

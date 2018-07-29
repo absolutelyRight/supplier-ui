@@ -1,20 +1,24 @@
 <template>
-	<section>
-		<!--工具条-->
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-			<el-form :inline="true" :model="filters">
-				<el-form-item style="float: right">
-					<el-button type="primary" v-on:click="getUsers">查询</el-button>
-				</el-form-item>
-				<el-form-item style="float: right">
-					<el-input v-model="filters.name" placeholder="输入关键字查询"></el-input>
-				</el-form-item>
-			</el-form>
-		</el-col>
+    <section>
+        <!--工具条-->
+        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+            <el-form :inline="true" :model="filters">
+                <el-form-item style="float: right">
+                    <el-button type="primary" v-on:click="getUsers">查询</el-button>
+                </el-form-item>
+                <el-form-item style="float: right">
+                    <el-input v-model="filters.name" placeholder="输入关键字查询"></el-input>
+                </el-form-item>
+            </el-form>
+        </el-col>
 
-		<!--列表-->
+        <!--列表-->
         <el-table :data="notices" highlight-current-row v-loading="listLoading" style="width: 100%">
-            <el-table-column prop="name" label="公告名称" width="300">
+            <el-table-column prop="name" label="需求名称" width="200">
+            </el-table-column>
+            <el-table-column prop="creator" label="发布人" width="100">
+            </el-table-column>
+            <el-table-column prop="createDepartment" label="发布部门" width="300">
             </el-table-column>
             <el-table-column
                     prop="type"
@@ -30,34 +34,41 @@
             <el-table-column
                     prop="status"
                     label="状态"
-                    min-width="200"
-                    :filters="[{ text: '已截止', value: '已截止' }, { text: '招标中', value: '招标中' }]"
+                    min-width="100"
+                    :filters="[{ text: '审核中', value: '审核中' }, { text: '已通过', value: '已通过' }, { text: '未通过', value: '未通过' }]"
                     :filter-method="filterStatus"
                     filter-placement="bottom-end">
                 <template slot-scope="scope">
-                    <el-tag :type="scope.row.status === '招标中' ? 'success' : 'danger'" disable-transitions>{{scope.row.status}}</el-tag>
+                    <el-tag :type="scope.row.status === '已通过' ? 'success' : 'danger'" disable-transitions>{{scope.row.status}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="time" label="截止日期" min-width="200">
+            <el-table-column prop="time" label="发起时间" min-width="200">
             </el-table-column>
-            <el-table-column label="详情" min-width="200">
+            <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button size="small">查看详情</el-button>
+                    <el-button type="text" size="small">查看详情</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" min-width="200">
+                <template slot-scope="scope">
+                    <el-button type="primary" size="small" v-if="scope.row.status === '审核中'">通过</el-button>
+                    <el-button type="primary" size="small" v-if="scope.row.status === '审核中'">不通过</el-button>
+                    <el-button type="text" size="small" v-if="scope.row.status !== '审核中'">已审核</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
-		<!--工具条-->
+        <!--工具条-->
 
-		<el-pagination
-				small
-				layout="prev, pager, next"
-				:total="50"
-				style="float: right"
-		>
-		</el-pagination>
+        <el-pagination
+                small
+                layout="prev, pager, next"
+                :total="50"
+                style="float: right"
+        >
+        </el-pagination>
 
-	</section>
+    </section>
 </template>
 
 <script>
@@ -72,32 +83,42 @@
                 notices: [
                     {
                         name:"品高Xx采购公告",
-						type:"软件服务",
-                        status:"招标中",
+                        type:"软件服务",
+                        creator: '老王',
+                        createDepartment: '品高广州/云产品中心/大数据部',
+                        status:"审核中",
                         time:"2018-7-26 23:21"
                     },
                     {
                         name:"品高XX采购公告",
                         type:"硬件服务",
-                        status:"已截止",
+                        creator: '老王',
+                        createDepartment: '品高广州/云产品中心/大数据部',
+                        status:"审核中",
                         time:"2018-7-26 23:21"
                     },
                     {
                         name:"品高XX采购公告",
                         type:"软件服务",
-                        status:"招标中",
+                        creator: '老王',
+                        createDepartment: '品高广州/云产品中心/大数据部',
+                        status:"已通过",
                         time:"2018-7-26 23:21"
                     },
                     {
                         name:"品高XX采购公告",
                         type:"外包服务",
-                        status:"招标中",
+                        creator: '老王',
+                        createDepartment: '品高广州/云产品中心/大数据部',
+                        status:"未通过",
                         time:"2018-7-26 23:21"
                     },
                     {
                         name:"品高XX采购公告",
                         type:"软件服务",
-                        status:"招标中",
+                        creator: '老王',
+                        createDepartment: '品高广州/云产品中心/大数据部',
+                        status:"审核中",
                         time:"2018-7-26 23:21"
                     },
 
