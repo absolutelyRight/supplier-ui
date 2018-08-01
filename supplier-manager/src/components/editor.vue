@@ -1,73 +1,44 @@
 <template>
-    <div>
-        <textarea :id= "Id"></textarea>
+    <div class='tinymce'>
+        <h1>tinymce</h1>
+        <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+        <div v-html='tinymceHtml'></div>
     </div>
 </template>
+
 <script>
-    import '../../static/langs/zh_CN.js'
+    import tinymce from 'tinymce/tinymce'
+    import 'tinymce/themes/modern/theme'
+    import Editor from '@tinymce/tinymce-vue'
+    import 'tinymce/plugins/image'
+    import 'tinymce/plugins/link'
+    import 'tinymce/plugins/code'
+    import 'tinymce/plugins/table'
+    import 'tinymce/plugins/lists'
+    import 'tinymce/plugins/contextmenu'
+    import 'tinymce/plugins/wordcount'
+    import 'tinymce/plugins/colorpicker'
+    import 'tinymce/plugins/textcolor'
     export default {
+        name: 'tinymce',
         data () {
-            const Id = Date.now()
             return {
-                Id: Id,
-                Editor: null,
-                DefaultConfig: {}
-            }
-        },
-        props: {
-            value: {
-                default: '',
-                type: String
-            },
-            config: {
-                type: Object,
-                default: () => {
-                    return {
-                        theme: 'modern',
-                        height: 300
-                    }
+                tinymceHtml: '请输入内容',
+                init: {
+                    language_url: '/static/zh_CN.js',
+                    language: 'zh_CN',
+                    skin_url: '/static/skins/lightgray',
+                    height: 300,
+                    plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+                    toolbar:
+                        'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+                    branding: false
                 }
             }
         },
         mounted () {
-            this.init()
+            tinymce.init({})
         },
-        beforeDestroy () {
-            // 销毁tinymce
-            this.$emit('on-destroy')
-            window.tinymce.remove(`$#{this.Id}`)
-        },
-        methods: {
-            init () {
-                const self = this
-                this.Editor = window.tinymce.init({
-                    // 默认配置
-                    ...this.DefaultConfig,
-
-                    // prop内传入的的config
-                    ...this.config,
-
-                    // 挂载的DOM对象
-                    selector: `#${this.Id}`,
-
-                    setup: (editor) => {
-                        // 抛出 'on-ready' 事件钩子
-                        editor.on(
-                            'init', () => {
-                                self.loading = false
-                                self.$emit('on-ready')
-                                editor.setContent(self.value)
-                            }
-                        )
-                        // 抛出 'input' 事件钩子，同步value数据
-                        editor.on(
-                            'input change undo redo', () => {
-                                self.$emit('input', editor.getContent())
-                            }
-                        )
-                    }
-                })
-            }
-        }
+        components: {Editor}
     }
 </script>

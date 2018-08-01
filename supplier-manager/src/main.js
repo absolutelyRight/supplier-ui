@@ -25,6 +25,19 @@ const router = new VueRouter({
   routes
 })
 
+Array.prototype.del=function(index){
+    if(isNaN(index)||index>=this.length){
+        return false;
+    }
+    for(var i=0,n=0;i<this.length;i++){
+        if(this[i]!=this[index]){
+            this[n++]=this[i];
+        }
+    }
+    this.length-=1;
+}
+
+
 router.beforeEach((to, from, next) => {
   //NProgress.start();
   if (to.path == '/login') {

@@ -11,7 +11,9 @@
             <el-form-item label="公告名称" prop="name" style="width: 300px">
                 <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <div>
+                <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+            </div>
             <el-upload
                     class="upload-demo"
                     action="https://jsonplaceholder.typicode.com/posts/"
@@ -25,7 +27,7 @@
                 <el-button size="small" type="primary" style="margin-top: 30px">上传附件</el-button>
             </el-upload>
             <el-form-item style="margin-left: 400px">
-                <el-button type="primary">提交</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -33,15 +35,23 @@
 </template>
 
 <script>
-    import editor from '../../components/editor'
+    import tinymce from 'tinymce/tinymce'
+    import 'tinymce/themes/modern/theme'
+    import Editor from '@tinymce/tinymce-vue'
+    import 'tinymce/plugins/image'
+    import 'tinymce/plugins/link'
+    import 'tinymce/plugins/code'
+    import 'tinymce/plugins/table'
+    import 'tinymce/plugins/lists'
+    import 'tinymce/plugins/contextmenu'
+    import 'tinymce/plugins/wordcount'
+    import 'tinymce/plugins/colorpicker'
+    import 'tinymce/plugins/textcolor'
     export default {
         name: "AddNotice",
         data() {
             return {
-                content:'公告内容......',
-                editorSetting:{
-                    height:400,
-                },
+                fileList: [],
                 ruleForm: {
                     name: '',
                     noticeType: '',
@@ -59,11 +69,19 @@
                     noticeType: [
                         { required: true, message: '请选择公告类型', trigger: 'change' }
                     ]
+                },
+                tinymceHtml: '请输入内容',
+                init: {
+                    language_url: '/static/langs/zh_CN.js',
+                    language: 'zh_CN',
+                    skin_url: '/static/skins/lightgray',
+                    height: 300,
+                    plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+                    toolbar:
+                        'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+                    branding: false
                 }
             };
-        },
-        components:{
-            'editor':editor
         },
         methods: {
             submitForm(formName) {
@@ -78,8 +96,24 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
             }
-        }
+        },
+        mounted () {
+            tinymce.init({})
+        },
+        components: {Editor}
     }
 </script>
 

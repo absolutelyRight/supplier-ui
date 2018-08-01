@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="header_carousel">
-            <el-carousel :interval="4000" type="card" height="270px">
+            <el-carousel :interval="4000" height="270px">
                 <el-carousel-item>
                     <img src="../../assets/carousel/im1.png" style="border-left: 30px;width: 100%" />
                 </el-carousel-item>
@@ -15,7 +15,7 @@
         </div>
         <div class="info_list">
             <el-row>
-                <el-col :span="14" style="margin-right: 9px"><div class="grid-content">
+                <el-col :span="14" style="margin-right: 10px;margin-left: 13px"><div class="grid-content">
                     <el-tabs type="border-card" @tab-click="tabClick">
                         <el-tab-pane label="招标公告">
                             <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
@@ -49,7 +49,7 @@
                         </router-link>
                     </el-tabs>
                 </div></el-col>
-                <el-col style="width: 40%;margin-left: 9px"><div class="grid-content bg-purple">
+                <el-col :span="9" style="margin-left: 10px"><div class="grid-content bg-purple">
                     <el-tabs type="border-card" v-if=this.isLogin>
                         <el-tab-pane label="采购公告">
                             <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
@@ -176,16 +176,14 @@
                 logining: false,
                 ruleForm2: {
                     account: 'admin',
-                    checkPass: '123456'
+                    checkPass: 'admin'
                 },
                 rules2: {
                     account: [
-                        { required: true, message: '请输入账号', trigger: 'blur' },
-                        //{ validator: validaePass }
+                        { required: true, message: '请输入账号', trigger: 'blur' }
                     ],
                     checkPass: [
                         { required: true, message: '请输入密码', trigger: 'blur' },
-                        //{ validator: validaePass2 }
                     ]
                 },
                 checked: true
@@ -203,21 +201,11 @@
                 var _this = this;
                 this.$refs.ruleForm2.validate((valid) => {
                     if (valid) {
-                        //_this.$router.replace('/table');
                         this.logining = true;
-                        //NProgress.start();
                         var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
                         requestLogin(loginParams).then(data => {
-                            this.logining = false;
-                            //NProgress.done();
-                            let { msg, code, user } = data;
-                            if (code !== 200) {
-                                this.$message({
-                                    message: msg,
-                                    type: 'error'
-                                });
-                            } else {
-                                sessionStorage.setItem('user', JSON.stringify(user));
+                            if(data.data.uAccount === loginParams.username && data.data.uPassword === loginParams.password){
+                                sessionStorage.setItem('user',  JSON.stringify(data.data));
                                 this.reload();
                             }
                         });
@@ -240,7 +228,8 @@
         margin: 0;
     }
     .info_list{
-        /*position: absolute;*/
+        position: relative;
+        top: 20px;
     }
     .info_list label {
         color: #409EFF;

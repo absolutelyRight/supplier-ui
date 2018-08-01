@@ -129,7 +129,7 @@
 				user = JSON.parse(user);
 				this.isLogin = true;
                 this.role.push('user');
-				this.sysUserName = user.name || '';
+				this.sysUserName = user.uName || '';
 				this.sysUserAvatar = user.avatar || '';
 			}else {
                 this.isLogin = false;
@@ -197,6 +197,7 @@
 			.content-wrapper {
 				padding-left: 20px;
 				padding-right: 20px;
+				padding-top: 20px;
 				background-color: #fff;
 				box-sizing: border-box;
 			}

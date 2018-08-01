@@ -6,72 +6,73 @@
 					<img src="../assets/logo/Bingo.png" />
 					<div class="pageTitle"><span>供应商管理系统</span></div>
 				</el-col>
-				<!--<el-col :span="10">-->
-					<!--<div class="tools" @click.prevent="collapse">-->
-						<!--<i class="fa fa-align-justify"></i>-->
-					<!--</div>-->
-				<!--</el-col>-->
-				<el-col :span="4" class="userinfo">
-					<el-dropdown trigger="hover">
-						<span class="el-dropdown-link userinfo-inner">{{sysUserName}}</span>
-						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item>我的消息</el-dropdown-item>
-							<el-dropdown-item>设置</el-dropdown-item>
-							<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
-						</el-dropdown-menu>
-					</el-dropdown>
+				<el-col :span="19">
+					<el-col :span="4" class="userinfo">
+						<el-dropdown trigger="hover">
+							<span class="el-dropdown-link userinfo-inner">{{sysUserName}}</span>
+							<el-dropdown-menu slot="dropdown">
+								<el-dropdown-item>我的消息</el-dropdown-item>
+								<el-dropdown-item>设置</el-dropdown-item>
+								<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+							</el-dropdown-menu>
+						</el-dropdown>
+					</el-col>
 				</el-col>
 			</el-col>
-		</el-col>
-		<el-col :span="24" class="main">
-			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-				<!--导航菜单-->
-				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-					 unique-opened router v-show="!collapsed" background-color="#f2f2f2" text-color="#303133" active-text-color="#409EFF">
-					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-						<el-submenu :index="index+''" v-if="!item.leaf">
-							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
-						</el-submenu>
-						<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
-					</template>
-				</el-menu>
-				<!--导航菜单-折叠后-->
-				<ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
-					<li v-for="(item,index) in $router.options.routes" v-if="!item.hidden" class="el-submenu item">
-						<template v-if="!item.leaf">
-							<div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
-							<ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
-								<li v-for="child in item.children" v-if="!child.hidden" :key="child.path" class="el-menu-item" style="padding-left: 40px;" :class="$route.path==child.path?'is-active':''" @click="$router.push(child.path)">{{child.name}}</li>
-							</ul>
-						</template>
-						<template v-else>
-							<li class="el-submenu">
-								<div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)">
+			<el-col :span="24" class="main">
+				<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
+					<!--<div class="tools" @click.prevent="collapse" v-if="!isCollapse">-->
+						<!--<i class="el-icon-d-arrow-left" style="margin-right: 11px"></i>-->
+						<!--收起菜单-->
+					<!--</div>-->
+					<!--<div class="closeTools" @click.prevent="collapse" v-if="isCollapse">-->
+						<!--<i class="el-icon-d-arrow-right" style="margin-right: 11px"></i>-->
+					<!--</div>-->
+					<!--导航菜单-->
+					<el-menu
+							default-active="$route.path"
+							class="el-menu-vertical-demo"
+							@open="handleOpen"
+							@close="handleClose"
+							:collapse="isCollapse"
+							unique-opened
+							router
+							background-color="#f2f2f2"
+							text-color="#303133"
+							active-text-color="#409EFF">
+						<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+							<el-submenu :index="index+''" v-if="!item.leaf">
+								<template slot="title">
 									<i :class="item.iconCls"></i>
-								</div>
-							</li>
+									<span slot="title">{{item.name}}</span>
+								</template>
+								<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+							</el-submenu>
+							<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path">
+								<i :class="item.iconCls"></i>
+								<span slot="title">{{item.children[0].name}}</span>
+							</el-menu-item>
 						</template>
-					</li>
-				</ul>
-			</aside>
-			<section class="content-container">
-				<div class="grid-content bg-purple-light">
-					<el-col :span="24" class="breadcrumb-container">
-						<strong class="title">{{$route.name}}</strong>
-						<el-breadcrumb separator="/" class="breadcrumb-inner">
-							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-								{{ item.name }}
-							</el-breadcrumb-item>
-						</el-breadcrumb>
-					</el-col>
-					<el-col :span="24" class="content-wrapper">
-						<transition name="fade" mode="out-in">
-							<router-view></router-view>
-						</transition>
-					</el-col>
-				</div>
-			</section>
+					</el-menu>
+				</aside>
+				<section class="content-container">
+					<div class="grid-content bg-purple-light">
+						<el-col :span="24" class="breadcrumb-container">
+							<strong class="title">{{$route.name}}</strong>
+							<el-breadcrumb separator="/" class="breadcrumb-inner">
+								<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+									{{ item.name }}
+								</el-breadcrumb-item>
+							</el-breadcrumb>
+						</el-col>
+						<el-col :span="24" class="content-wrapper">
+							<transition name="fade" mode="out-in">
+								<router-view></router-view>
+							</transition>
+						</el-col>
+					</div>
+				</section>
+			</el-col>
 		</el-col>
 	</el-row>
 </template>
@@ -82,8 +83,10 @@
 			return {
 				sysName:'VUEADMIN',
 				collapsed:false,
+                isCollapse: false,
 				sysUserName: '',
 				sysUserAvatar: '',
+                clientWidth: '600px',
 				form: {
 					name: '',
 					region: '',
@@ -100,14 +103,12 @@
 			onSubmit() {
 				console.log('submit!');
 			},
-			handleopen() {
-				//console.log('handleopen');
-			},
-			handleclose() {
-				//console.log('handleclose');
-			},
-			handleselect: function (a, b) {
-			},
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
 			//退出登录
 			logout: function () {
 				var _this = this;
@@ -124,10 +125,7 @@
 			},
 			//折叠导航栏
 			collapse:function(){
-				this.collapsed=!this.collapsed;
-			},
-			showMenu(i,status){
-				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
+				this.isCollapse=!this.isCollapse;
 			}
 		},
 		mounted() {
@@ -137,14 +135,28 @@
 				this.sysUserName = user.name || '';
 				this.sysUserAvatar = user.avatar || '';
 			}
-
+            const that = this;
+            window.onresize = function temp() {
+                that.clientWidth = `${document.documentElement.clientWidth}`;
+                if (parseInt(that.clientWidth)<1200){
+                    that.isCollapse=true;
+				}else if(parseInt(that.clientWidth)>1200){
+                    that.isCollapse=false;
+				}
+            };
 		}
+
+
 	}
 
 </script>
 
 <style scoped lang="scss">
 	@import "~scss_vars";
+	.el-menu-vertical-demo:not(.el-menu--collapse) {
+		width: 200px;
+		min-height: 400px;
+	}
 	.pageTitle{
 		span {
 			bottom: 11px;
@@ -171,13 +183,13 @@
 		width: 100%;
 		.header {
 			height: 60px;
-			line-height: 60px;
 			background: $color-primary;
-			color:#fff;
+			color:rgb(48, 49, 51);
 			.userinfo {
 				text-align: right;
 				padding-right: 35px;
 				float: right;
+				line-height: 60px;
 				.userinfo-inner {
 					cursor: pointer;
 					color:#fff;
@@ -211,13 +223,6 @@
 			.logo-collapse-width{
 				width:60px
 			}
-			.tools{
-				padding: 0px 23px;
-				width:14px;
-				height: 60px;
-				line-height: 60px;
-				cursor: pointer;
-			}
 		}
 		.main {
 			display: flex;
@@ -226,37 +231,28 @@
 			bottom: 0px;
 			overflow: hidden;
 			aside {
-				flex:0 0 268px;
-				width: 230px;
-				// position: absolute;
-				// top: 0px;
-				// bottom: 0px;
 				.el-menu{
 					height: 100%;
 				}
 				.collapsed{
 					width:60px;
-					.item{
-						position: relative;
-					}
-					.submenu{
-						position:absolute;
-						top:0px;
-						left:60px;
-						z-index:99999;
-						height:auto;
-						display:none;
-					}
-
 				}
-			}
-			.menu-collapsed{
-				flex:0 0 60px;
-				width: 60px;
-			}
-			.menu-expanded{
-				flex:0 0 268px;
-				width: 230px;
+				.tools{
+					padding: 0px 21px;
+					width: 160px;
+					height: 60px;
+					line-height: 60px;
+					cursor: pointer;
+					background-color: #f2f2f2;
+				}
+				.closeTools{
+					padding: 0px 21px;
+					width: 24px;
+					height: 60px;
+					line-height: 60px;
+					cursor: pointer;
+					background-color: #f2f2f2;
+				}
 			}
 			.content-container {
 				// background: #f1f2f7;

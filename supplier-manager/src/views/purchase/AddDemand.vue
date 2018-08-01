@@ -11,7 +11,9 @@
             <el-form-item label="需求标题" prop="name">
                 <el-input v-model="ruleForm.name" style="width: 300px"></el-input>
             </el-form-item>
-            <editor class="editor" :value="content"  :setting="editorSetting" @input="(content)=> content = content"></editor>
+            <div>
+                <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
+            </div>
             <el-upload
                     class="upload-demo"
                     action="https://jsonplaceholder.typicode.com/posts/"
@@ -33,15 +35,22 @@
 </template>
 
 <script>
-    import editor from '../../components/editor'
+    import tinymce from 'tinymce/tinymce'
+    import 'tinymce/themes/modern/theme'
+    import Editor from '@tinymce/tinymce-vue'
+    import 'tinymce/plugins/image'
+    import 'tinymce/plugins/link'
+    import 'tinymce/plugins/code'
+    import 'tinymce/plugins/table'
+    import 'tinymce/plugins/lists'
+    import 'tinymce/plugins/contextmenu'
+    import 'tinymce/plugins/wordcount'
+    import 'tinymce/plugins/colorpicker'
+    import 'tinymce/plugins/textcolor'
     export default {
         name: "AddNotice",
         data() {
             return {
-                content:'需求内容......',
-                editorSetting:{
-                    height:400,
-                },
                 ruleForm: {
                     name: '',
                     noticeType: '',
@@ -59,12 +68,24 @@
                     noticeType: [
                         { required: true, message: '请选择采购类型', trigger: 'change' }
                     ]
+                },
+                tinymceHtml: '请输入内容',
+                init: {
+                    language_url: '/static/langs/zh_CN.js',
+                    language: 'zh_CN',
+                    skin_url: '/static/skins/lightgray',
+                    height: 300,
+                    plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
+                    toolbar:
+                        'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
+                    branding: false
                 }
             };
         },
-        components:{
-            'editor':editor
+        mounted () {
+            tinymce.init({})
         },
+        components: {Editor},
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
