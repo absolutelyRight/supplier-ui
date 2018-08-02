@@ -22,27 +22,60 @@
                                 <el-collapse-item title="品高软件服务器采购招标公告" name="1">
                                     <div>品高软件近期需采购服务器若干</div>
                                     <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="品高北京硬盘采购招标公告" name="2">
                                     <div>品高北京近期需采购硬盘若干</div>
                                     <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="知韫科技服务器采购招标公告" name="3">
                                     <div>知韫科技近期需采购服务器若干</div>
                                     <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
                                     <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="4">
                                     <div>微软技术中心近期需采购泰坦显卡若干</div>
                                     <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="5">
                                     <div>微软技术中心近期需采购泰坦显卡若干</div>
                                     <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                             </el-collapse>
                         </el-tab-pane>
-                        <el-tab-pane label="中标公告">配置管理</el-tab-pane>
+                        <el-tab-pane label="中标公告">
+                            <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
+                                <el-collapse-item title="关于鼎兴电子中标品高软件服务器采购项目的公告" name="1">
+                                    <div>关于鼎兴电子中标品高软件服务器采购项目的公告</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
+                                </el-collapse-item>
+                                <el-collapse-item title="品高北京硬盘采购招标公告" name="2">
+                                    <div>品高北京近期需采购硬盘若干</div>
+                                    <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
+                                </el-collapse-item>
+                                <el-collapse-item title="知韫科技服务器采购招标公告" name="3">
+                                    <div>知韫科技近期需采购服务器若干</div>
+                                    <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
+                                    <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
+                                </el-collapse-item>
+                                <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="4">
+                                    <div>微软技术中心近期需采购泰坦显卡若干</div>
+                                    <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
+                                </el-collapse-item>
+                                <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="5">
+                                    <div>微软技术中心近期需采购泰坦显卡若干</div>
+                                    <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
+                                </el-collapse-item>
+                            </el-collapse>
+                        </el-tab-pane>
                         <el-tab-pane label="通知">角色管理</el-tab-pane>
                         <router-link :to="{path:'/noticeInformation',query: {noticeType: informationType}}">
                             <a href="#" style="float: right">更多</a>
@@ -56,23 +89,28 @@
                                 <el-collapse-item title="品高软件服务器采购招标公告" name="7">
                                     <div>品高软件近期需采购服务器若干</div>
                                     <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="品高北京硬盘采购招标公告" name="8">
                                     <div>品高北京近期需采购硬盘若干</div>
                                     <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="知韫科技服务器采购招标公告" name="9">
                                     <div>知韫科技近期需采购服务器若干</div>
                                     <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
                                     <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="10">
                                     <div>微软技术中心近期需采购泰坦显卡若干</div>
                                     <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                                 <el-collapse-item title="微软技术中心泰坦显卡招标公告" name="10">
                                     <div>微软技术中心近期需采购泰坦显卡若干</div>
                                     <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                                    <div><el-button  size="small" type="text" style="float: right">查看详情</el-button></div>
                                 </el-collapse-item>
                             </el-collapse>
                         </el-tab-pane>
@@ -230,6 +268,7 @@
     .info_list{
         position: relative;
         top: 20px;
+        min-width: 800px;
     }
     .info_list label {
         color: #409EFF;
