@@ -149,7 +149,7 @@
     }
 </script>
 
-<style scoped>
+<style type="text/scss" scoped lang="scss">
     .formFooter{
         position: absolute;
         top: 360px;

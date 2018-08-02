@@ -219,7 +219,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style type="text/scss" scoped lang="scss">
     .el-carousel__item h3 {
         color: #475669;
         font-size: 14px;

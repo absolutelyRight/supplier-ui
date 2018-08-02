@@ -200,7 +200,7 @@
     }
 </script>
 
-<style scoped>
+<style type="text/scss" scoped lang="scss">
     .chart-container {
         width: 100%;
         float: left;

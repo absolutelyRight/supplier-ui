@@ -17,20 +17,41 @@
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="navi">
-			<!--<div class="gateway-menu">-->
 			<aside>
-				<el-menu mode="horizontal" :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
-					 unique-opened router v-show="!collapsed" background-color="#f2f2f2" text-color="#303133" active-text-color="#409EFF">
-					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden && isContained(role,item.role)">
+				<el-menu mode="horizontal"
+						 :default-active="$route.path"
+						 class="el-menu-vertical-demo"
+						 @open="handleopen"
+						 @close="handleclose"
+						 @select="handleselect"
+						 unique-opened
+						 router
+						 v-show="!collapsed"
+						 background-color="#f2f2f2"
+						 text-color="#303133"
+						 active-text-color="#409EFF">
+					<template
+							v-for="(item,index) in $router.options.routes"
+							v-if="!item.hidden && isContained(role,item.role)">
 						<el-submenu :index="index+''" v-if="!item.leaf">
 							<template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path"  v-if="!child.hidden">{{child.name}}</el-menu-item>
+							<el-menu-item
+									v-for="child in item.children"
+									:index="child.path"
+									:key="child.path"
+									v-if="!child.hidden">
+								{{child.name}}
+							</el-menu-item>
 						</el-submenu>
-						<el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
+						<el-menu-item
+								v-if="item.leaf&&item.children.length>0"
+								:index="item.children[0].path">
+							<i :class="item.iconCls"></i>
+							{{item.children[0].name}}
+						</el-menu-item>
 					</template>
 				</el-menu>
 			</aside>
-			<!--</div>-->
 		</el-col>
 		<el-col>
 			<section class="content-container">
@@ -140,17 +161,7 @@
 	}
 
 </script>
-
-<style scoped lang="scss">
-	@import '~scss_vars';
-
-	.gateway-menu{
-		width: 100%;
-
-		height: 60px;
-		z-index: 999;
-	}
-
+<style type="text/scss" scoped lang="scss">
 	.pageTitle{
 		span {
 			bottom: 11px;
@@ -183,17 +194,6 @@
 			position: absolute;
 			top: 120px;
 			bottom: 0;
-			.breadcrumb-container {
-				//margin-bottom: 15px;
-				.title {
-					width: 200px;
-					float: left;
-					color: #475669;
-				}
-				.breadcrumb-inner {
-					float: right;
-				}
-			}
 			.content-wrapper {
 				padding-left: 20px;
 				padding-right: 20px;

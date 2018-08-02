@@ -76,7 +76,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style type="text/scss" scoped lang="scss">
   .login-container {
     border-radius: 5px;
     background-clip: padding-box;

@@ -154,8 +154,5 @@
     }
 </script>
 
-<style scoped lang="scss">
-    .area{
-        margin: 20px;
-    }
+<style type="text/scss" scoped lang="scss">
 </style>
