@@ -2,8 +2,7 @@
 	<el-row class="container">
 		<el-col :span="24" class="header">
 			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-				<img src="../assets/logo/Bingo.png" />
-				<div class="pageTitle"><span>供应商管理系统</span></div>
+				<img src="../assets/logo/banner.png" />
 			</el-col>
 			<el-col v-if=this.isLogin :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
@@ -162,25 +161,6 @@
 
 </script>
 <style type="text/scss" scoped lang="scss">
-	.pageTitle{
-		span {
-			bottom: 11px;
-			left: 10px;
-			color: white;
-			position: relative;
-		}
-		background-color: #f78a8a;
-		position: absolute;
-		height: 35px;
-		top: 16px;
-		border-radius: 10px;
-		width: 160px;
-		left: 58px;
-		font-size: 20px;
-		color: #676767;
-		margin: 0 35px;
-		line-height: 60px;
-	}
 	.container {
 		position: absolute;
 		top: 0px;
@@ -224,18 +204,11 @@
 				}
 			}
 			.logo {
-				//width:230px;
 				height:60px;
-				font-size: 22px;
 				padding-left:20px;
-				padding-right:20px;
-				border-color: rgba(238,241,146,0.3);
 				img {
-					width: 70px;
+					width: 200px;
 					float: left;
-				}
-				.txt {
-					color:#fff;
 				}
 			}
 			.logo-width{
