@@ -31,11 +31,6 @@
                 </el-form-item>
             </el-col>
             <el-col :span="7">
-                <el-form-item label="密码" prop="sPassword">
-                    <el-input type="password" v-model="ruleForm.sPassword"></el-input>
-                </el-form-item>
-            </el-col>
-            <el-col :span="7">
                 <el-form-item label="电话" prop="sPhone">
                     <el-input v-model="ruleForm.sPhone"></el-input>
                 </el-form-item>
@@ -51,23 +46,27 @@
                 </el-form-item>
             </el-col>
             <el-col :span="7">
-                <el-form-item label="E-mail" prop="sEmailUrl">
-                    <el-input v-model="ruleForm.sEmailUrl"></el-input>
-                </el-form-item>
-            </el-col>
-            <el-col :span="7">
                 <el-form-item label="联系人" prop="sContact">
                     <el-input v-model="ruleForm.sContact"></el-input>
                 </el-form-item>
             </el-col>
-            <el-col :span="5">
-                <el-form-item label="邮箱验证码" prop="sEmailCode">
-                    <el-input v-model="ruleForm.sEmailCode"></el-input>
-                </el-form-item>
-            </el-col>
-            <el-col :span="4">
-                <el-button style="margin-left: 15px">获取验证码</el-button>
-            </el-col>
+            <el-form-item label="E-mail(将作为您的账号)" prop="sEmailUrl" style="width: 500px">
+                <el-col :span="17">
+                    <el-input v-model="ruleForm.sEmailUrl"></el-input>
+                </el-col>
+                <el-col :span="6">
+                    <el-button style="margin-left: 15px">获取验证码</el-button>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="邮箱验证码" prop="sEmailCode" style="width: 380px">
+                <el-input v-model="ruleForm.sEmailCode"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="sPassword" style="width: 380px">
+                <el-input type="password" v-model="ruleForm.sPassword"></el-input>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="confirmPassword" style="width: 380px">
+                <el-input type="password" v-model="ruleForm.confirmPassword"></el-input>
+            </el-form-item>
             <div class="formFooter">
                 <el-button type="primary" @click="submitForm('ruleForm')">下一步</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -92,6 +91,7 @@
                     sPhone: '',
                     sAddress: '',
                     sDeputy: '',
+                    confirmPassword: '',
                     sEmailUrl: '',
                     sContact: '',
                     sEmailCode: ''
@@ -127,6 +127,9 @@
                     ],
                     sEmailCode: [
                         { required: true, message: '请输入邮箱验证码', trigger: 'blur' }
+                    ],
+                    confirmPassword: [
+                        { required: true, message: '请再输一次密码', trigger: 'blur' }
                     ]
                 }
             };
@@ -151,9 +154,6 @@
 
 <style type="text/scss" scoped lang="scss">
     .formFooter{
-        position: absolute;
-        top: 360px;
         text-align: center;
-        width: 98%;
     }
 </style>

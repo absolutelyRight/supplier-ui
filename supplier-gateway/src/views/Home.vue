@@ -115,7 +115,8 @@
 					if (this.$route.path === '/'){
                         this.reload();
 					}
-					_this.$router.push('/');
+					this.$router.push('/');
+                    this.reload();
 				}).catch(() => {
 
 				});
