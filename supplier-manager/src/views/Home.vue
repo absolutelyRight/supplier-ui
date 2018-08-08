@@ -20,14 +20,6 @@
 			</el-col>
 			<el-col :span="24" class="main">
 				<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-					<!--<div class="tools" @click.prevent="collapse" v-if="!isCollapse">-->
-						<!--<i class="el-icon-d-arrow-left" style="margin-right: 11px"></i>-->
-						<!--收起菜单-->
-					<!--</div>-->
-					<!--<div class="closeTools" @click.prevent="collapse" v-if="isCollapse">-->
-						<!--<i class="el-icon-d-arrow-right" style="margin-right: 11px"></i>-->
-					<!--</div>-->
-					<!--导航菜单-->
 					<el-menu
 							default-active="$route.path"
 							class="el-menu-vertical-demo"
@@ -39,6 +31,11 @@
 							background-color="#f2f2f2"
 							text-color="#303133"
 							active-text-color="#409EFF">
+						<el-menu-item @click="collapse">
+							<i v-if="isCollapse" class="el-icon-arrow-right"></i>
+							<i v-else class="el-icon-arrow-left"></i>
+							<span slot="title">列表菜单</span>
+						</el-menu-item>
 						<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 							<el-submenu :index="index+''" v-if="!item.leaf">
 								<template slot="title">

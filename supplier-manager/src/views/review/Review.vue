@@ -134,7 +134,7 @@
                 return row[property] === value;
             },
             getSuppliers() {
-                for (var i=0; i<= this.suppliers.length; i++){
+                for (var i=0; i< this.suppliers.length; i++){
                     if (this.suppliers[i].alreadyAssess == '0'){
                         this.suppliers[i].alreadyAssess = '未确认';
                     }else if(this.suppliers[i].alreadyAssess == '1'){
