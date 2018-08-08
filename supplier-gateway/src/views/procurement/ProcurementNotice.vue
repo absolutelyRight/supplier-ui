@@ -16,6 +16,8 @@
         <el-table :data="notices" highlight-current-row v-loading="listLoading" style="width: 100%">
             <el-table-column prop="name" label="公告名称" width="300">
             </el-table-column>
+            <el-table-column prop="time" label="截止日期" min-width="200">
+            </el-table-column>
             <el-table-column
                     prop="type"
                     label="采购类型"
@@ -37,8 +39,6 @@
                 <template slot-scope="scope">
                     <el-tag :type="scope.row.status === '招标中' ? 'success' : 'danger'" disable-transitions>{{scope.row.status}}</el-tag>
                 </template>
-            </el-table-column>
-            <el-table-column prop="time" label="截止日期" min-width="200">
             </el-table-column>
             <el-table-column label="详情" min-width="200">
                 <template slot-scope="scope">

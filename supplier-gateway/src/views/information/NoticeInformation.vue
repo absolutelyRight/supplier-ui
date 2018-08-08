@@ -16,6 +16,10 @@
 		<el-table :data="notices" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column prop="name" label="公告名" width="200">
 			</el-table-column>
+			<el-table-column prop="creater" label="发布人" min-width="200">
+			</el-table-column>
+			<el-table-column prop="time" label="发布时间" min-width="200">
+			</el-table-column>
 			<el-table-column
 					prop="type"
 					label="公告类型"
@@ -31,10 +35,6 @@
 				<template slot-scope="scope">
 					<el-button type="text" @click="openInfo(scope.row.info)" size="small">查看详情</el-button>
 				</template>
-			</el-table-column>
-			<el-table-column prop="creater" label="发布人" min-width="200">
-			</el-table-column>
-			<el-table-column prop="time" label="发布时间" min-width="200">
 			</el-table-column>
 		</el-table>
 

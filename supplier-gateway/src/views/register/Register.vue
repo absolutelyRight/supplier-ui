@@ -72,6 +72,8 @@
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </div>
         </el-form>
+
+
     </section>
 </template>
 <script>
@@ -94,7 +96,18 @@
                     confirmPassword: '',
                     sEmailUrl: '',
                     sContact: '',
-                    sEmailCode: ''
+                    sEmailCode: '',
+                    sMoney: 0,
+                    sRealMoney: 0,
+                    sFoundDate: '',
+                    sAvgIncome: '',
+                    sBankName: '',
+                    sBankCredit: '',
+                    sBankAccount: '',
+                    sBankAccountName: '',
+                    sProduct: '',
+                    sClient: '',
+                    sAbility: ''
 
                 },
                 rules: {
