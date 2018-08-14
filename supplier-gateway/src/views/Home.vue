@@ -178,6 +178,7 @@
 			.content-wrapper {
 				padding-left: 20px;
 				padding-right: 20px;
+				padding-bottom: 20px;
 				padding-top: 20px;
 				background-color: #fff;
 				box-sizing: border-box;

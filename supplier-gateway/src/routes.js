@@ -15,6 +15,7 @@ import BidingManage from './views/manage/BidingManage.vue'
 import BidManage from './views/manage/BidManage.vue'
 import SysIndex from './views/index/sysIndex.vue'
 import echarts from './views/charts/echarts.vue'
+import NoticeInfo from './views/information/NoticeInfo.vue'
 import UserInfo from './views/setting/UserInfo.vue'
 import SettingInfo from './views/setting/SettingInfo.vue'
 import Register from './views/register/Register.vue'
@@ -66,6 +67,16 @@ let routes = [
         iconCls: 'iconfont el-icon-erp-createtask_fill',//图标样式class
         children: [
             { path: '/procurementNotice', component: ProcurementNotice, name: '采购公告' },
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '公告详情',
+        role: ['admin','user'],
+        leaf:true,
+        children:[
+            {path: '/noticeInfo',component:NoticeInfo, name: '公告详情'}
         ]
     },
     {
