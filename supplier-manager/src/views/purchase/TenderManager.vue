@@ -57,7 +57,7 @@
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small">查看详情</el-button>
+                    <el-button type="text" size="small" @click="openInfo()">查看详情</el-button>
                 </template>
             </el-table-column>
             <el-table-column label="参与供应商" min-width="200">
@@ -182,6 +182,9 @@
             handleCurrentChange(val) {
                 this.page = val;
                 this.getUsers();
+            },
+            openInfo() {
+                this.$router.push({path: '/noticeInfo'});
             },
             //获取用户列表
             getUsers() {

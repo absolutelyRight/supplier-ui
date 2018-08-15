@@ -136,9 +136,7 @@
 
             },
             openInfo(info) {
-                this.$alert('<strong>这是 <i>'+ info +'</i> 片段</strong>', '详情', {
-                    dangerouslyUseHTMLString: true
-                });
+                this.$router.push({path: '/noticeInfo'});
             },
             //删除
             handleDel: function (index, row) {

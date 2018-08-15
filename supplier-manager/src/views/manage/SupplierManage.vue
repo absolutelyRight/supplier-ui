@@ -30,6 +30,8 @@
             </el-table-column>
             <el-table-column prop="registerTime" label="注册时间" min-width="200" sortable>
             </el-table-column>
+            <el-table-column prop="evaluate" label="评价" min-width="80" sortable>
+            </el-table-column>
             <el-table-column label="以往投标情况" min-width="200">
                 <template slot-scope="scope">
                     <el-button size="small" type="text">查看以往投标情况</el-button>
@@ -40,11 +42,9 @@
                     <el-button size="small" type="text">查看以往中标情况</el-button>
                 </template>
             </el-table-column>
-            <el-table-column prop="evaluate" label="评价" min-width="80" sortable>
-            </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button size="small" type="text">查看详情</el-button>
+                    <el-button size="small" type="text" @click="openInfo()">查看详情</el-button>
                 </template>
             </el-table-column>
             <el-table-column label="操作" min-width="200">
@@ -308,6 +308,9 @@
             handleCurrentChange(val) {
                 this.page = val;
                 this.getUsers();
+            },
+            openInfo() {
+                this.$router.push({path: '/noticeInfo'});
             },
             //删除
             handleDel: function (index, row) {

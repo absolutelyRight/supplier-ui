@@ -42,7 +42,7 @@
             </el-table-column>
             <el-table-column label="详情" min-width="200">
                 <template slot-scope="scope">
-                    <el-button size="small">查看详情</el-button>
+                    <el-button size="small" type="text" @click="openInfo(scope.row.info)">查看详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -151,6 +151,9 @@
             //获取用户列表
             getUsers() {
 
+            },
+            openInfo(info) {
+                this.$router.push({path: '/noticeInfo'});
             },
             formatter(row, column) {
                 return row.address;

@@ -47,7 +47,7 @@
             </el-table-column>
             <el-table-column label="详情" min-width="200">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small">查看详情</el-button>
+                    <el-button type="text" size="small" @click="openInfo()">查看详情</el-button>
                 </template>
             </el-table-column>
             <el-table-column label="操作" min-width="150">
@@ -168,6 +168,9 @@
             },
             filterTag(value, row) {
                 return row.type === value;
+            },
+            openInfo() {
+                this.$router.push({path: '/noticeInfo'});
             },
             filterHandler(value, row, column) {
                 const property = column['property'];

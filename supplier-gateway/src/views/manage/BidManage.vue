@@ -17,21 +17,21 @@
 		<el-table :data="notices" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column prop="name" label="项目名称" width="300">
 			</el-table-column>
-			<el-table-column
-					prop="type"
-					label="采购类型"
-					width="180"
-					:filters="[{ text: '软件服务', value: '软件服务' }, { text: '硬件服务', value: '硬件服务' }, { text: '外包服务', value: '外包服务' }]"
-					:filter-method="filterTag"
-					filter-placement="bottom-end">
-				<template slot-scope="scope">
-					<el-tag :type="'primary'" disable-transitions>{{scope.row.type}}</el-tag>
-				</template>
-			</el-table-column>
 			<el-table-column prop="bidtime" label="中标日期" min-width="200" sortable>
 			</el-table-column>
 			<el-table-column prop="time" label="公布日期" min-width="200">
-			</el-table-column>
+			</el-table-column><el-table-column
+				prop="type"
+				label="采购类型"
+				width="180"
+				:filters="[{ text: '软件服务', value: '软件服务' }, { text: '硬件服务', value: '硬件服务' }, { text: '外包服务', value: '外包服务' }]"
+				:filter-method="filterTag"
+				filter-placement="bottom-end">
+			<template slot-scope="scope">
+				<el-tag :type="'primary'" disable-transitions>{{scope.row.type}}</el-tag>
+			</template>
+		</el-table-column>
+
 			<el-table-column label="详情" min-width="200">
 				<template slot-scope="scope">
 					<el-button size="small" type="text" @click="openInfo(scope.row.info)">查看详情</el-button>
@@ -144,9 +144,7 @@
 
             },
             openInfo(info) {
-                this.$alert('<strong>这是 <i>'+ info +'</i> 片段</strong>', '详情', {
-                    dangerouslyUseHTMLString: true
-                });
+                this.$router.push({path: '/noticeInfo'});
             },
             formatter(row, column) {
                 return row.address;
