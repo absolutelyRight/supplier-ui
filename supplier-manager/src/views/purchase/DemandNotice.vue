@@ -65,7 +65,7 @@
             </el-table-column>
             <el-table-column label="操作" min-width="300">
                 <template slot-scope="scope">
-                    <el-button type="success" size="small" v-if="scope.row.status !== '审核中' && scope.row.status !== '已发布'">发布</el-button>
+                    <el-button type="success" size="small" v-if="scope.row.status === '已通过'">发布</el-button>
                     <el-button type="primary" size="small" v-if="scope.row.status !== '已发布'">修改</el-button>
                     <el-button type="danger" size="small">删除</el-button>
                 </template>
