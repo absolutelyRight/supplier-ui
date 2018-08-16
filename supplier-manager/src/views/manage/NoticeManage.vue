@@ -54,7 +54,7 @@
                 <template slot-scope="scope">
                     <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
                     <el-button type="primary" size="small">修改</el-button>
-                    <el-button type="success" v-if="scope.row.reviewStatus !== '已发布'" size="small">发布</el-button>
+                    <el-button type="success" v-if="scope.row.reviewStatus === '审核通过'" size="small">发布</el-button>
                 </template>
             </el-table-column>
         </el-table>
