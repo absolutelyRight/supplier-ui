@@ -4,6 +4,11 @@ let base = 'http://localhost:8080';
 
 // export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
+var instance = axios.create({
+    headers: {'content-type': 'application/x-www-form-urlencoded'}
+});
+
+export const testApi = params => { return instance.post(`${process.env.API_ROOT}fang/get`, {}).then(res => res.data); };
 export const requestLogin = params => { return axios.get(`/static/user.json`, {}); };
 export const register = params => { return axios.post(`${base}/supplier/register`,params).then(res => res.data);};
 

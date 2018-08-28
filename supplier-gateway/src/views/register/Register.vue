@@ -127,15 +127,6 @@
                     <el-input v-model="ruleForm.sAvgIncome"></el-input>
                 </el-form-item>
             </el-col>
-            <!--<el-col :span="7">-->
-                <!--<el-form-item label="供应商类型">-->
-                    <!--<el-cascader-->
-                            <!--expand-trigger="hover"-->
-                            <!--:options="options"-->
-                            <!--v-model="selectedOptions">-->
-                    <!--</el-cascader>-->
-                <!--</el-form-item>-->
-            <!--</el-col>-->
 
             <div class="formFooter">
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>

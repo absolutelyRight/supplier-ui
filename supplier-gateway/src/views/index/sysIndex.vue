@@ -143,7 +143,7 @@
 </template>
 
 <script>
-    import { requestLogin } from '../../api/api';
+    import { requestLogin,testApi } from '../../api/api';
     import ElButton from "element-ui/packages/button/src/button";
     export default {
         components: {ElButton},
@@ -230,6 +230,9 @@
         mounted: function () {
             var user = sessionStorage.getItem('user');
             this.isLogin = !!user;
+            testApi().then(data => {
+                console.log(data);
+            })
         },
         methods: {
             tabClick(se){
