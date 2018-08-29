@@ -76,111 +76,36 @@ app.use("/fang/add",function (req, res, next) {
 app.use("/fang/get",function (req, res, next) {
     res.send(model.user);
 })
-app.use("/tender/add",function (req, res, next) {
-    var tender = req.body;
-    tender.id=model.tenders[model.tenders.length-1]+1;
-    model.tenders.push(tender);
-    res.send(true);
-    return false;
-});
-app.use("/tender/select",function (req, res, next) {
-    var purchaseId = req.body.purchaseId;
-    var tenderId = req.body.tenderId;
-    var list=model.purchase.filter(function (e) {
-        return e.id==purchaseId;
-    });
-    if(list.length==0)
-        res.send(null);
-    else
-    {
-        list=model.tenders.filter(function (e) {
-            return e.id==tenderId&& e.purchaseId==purchaseId;
-        });
-        if(list.length>0) {
-            var e=list[0];
-            e.status = 1;
-            res.send(true);
-        }
-        else {
-            res.send(false);
-        }
-    }
-});
-app.use("/tender/define",function (req, res, next) {
-    var purchaseId = req.body.purchaseId;
-    var tenderId = req.body.tenderId;
-    var list=model.purchase.filter(function (e) {
-        return e.id==purchaseId;
-    });
-    if(list.length==0)
-        res.send(null);
-    else
-    {
-        var purchase = list[0];
-        var definedTime = Date.now();
-        list=model.tenders.filter(function (e) {
-            return e.id==tenderId&& e.purchaseId==purchaseId;
-        });
-        if(list.length>0) {
-            var t=list[0];
-            t.status = 2;
-            t.definedTime = definedTime;
-            purchase.definedTime = definedTime;
-            purchase.definedSupplierId= t.supplierId;
 
-            var msg={
-                id:model.messages.length,
-                supplierId:t.supplierId,
-                title:'中标通知',
-                content:`您已中标【${purchase.name}】采购项目，请等待平台与您联系`,
-                createTime:Date.now()
-            };
-            model.messages.push(msg);
-            res.send(true);
-        }
-        else {
-            res.send(false);
+//********************fang********************
+app.use("/notice/get",function (req, res, next) {
+    res.send(model.notics);
+})
+app.use("/notice/add",function (req, res, next) {
+    req.body.id=model.notics.length+1;
+    model.notics.push(req.body)
+    console.log(req.body);
+    res.send(model.notics);
+})
+app.use("/notice/updata",function (req, res, next) {
+    for (let i in model.notics){
+        if(req.body.id===model.notics[i].id){
+            model.notics[i]=req.body;
         }
     }
-});
-app.use("/tender",function (req, res, next) {
-    var pageIndex=req.body.pageIndex|| 1,pageSize=10;
-    var total = model.tenders.length;
-    var purchaseId = req.body.purchaseId;
-    if(!purchaseId) {
-        res.send(null);
-        return;
-    }
-    var list = model.tenders.filter(function (e){
-        return e.purchaseId== purchaseId
-    }).slice((pageIndex-1)*pageSize,pageSize*pageIndex);
-    list.forEach(function (e) {
-        model.suppliers.forEach(function (s) {
-            if(s.id== e.supplierId){
-                e.name= s.name;
-            }
-        })
-    });
-    var page={
-        list: list,
-        total: total,
-        totalPage:Math.ceil(total/pageSize)
-    };
-    res.send(page);
-});
+    console.log(req.body);
+    console.log(model.notics);
+})
 
-app.use("/message/get",function (req, res, next) {
-    var id = req.body.id;
-    if(!id) {
-        res.send(null);
-        return;
-    }
-    model.messages.forEach(function (e){
-        if(e.id== id){
-            res.send(e);
-        }
-    });
-});
+app.use("/gateway_notice/add",function (req, res, next) {
+    req.body.id=model.gateway_notices.length+1;
+    model.gateway_notices.push(req.body)
+    console.log(req.body);
+})
+app.use("/gateway_notices/get",function (req, res, next) {
+    res.send(model.gateway_notices);
+})
+//********************fang********************
 
 app.use("/supplier/add",function (req,res,next) {
     model.supplier.push({

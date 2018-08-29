@@ -21,9 +21,8 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
+export const getNotices = params => {return axios.post(`manager/notice/get`,{ params: params });};
 
-export const getTender = params => {return axios.post(`${process.env.API_ROOT}tender`, params).then(res => res.data); };
+export const addNotice = params => {return axios.post(`manager/notice/add`,params );};
 
-export const selectTender = params => { return axios.post(`${process.env.API_ROOT}tender/select`, params).then(res => res.data); };
-
-export const defineTender = params => { return axios.post(`${process.env.API_ROOT}tender/define`, params).then(res => res.data); };
+export const updataNotice = params => {return axios.post(`manager/notice/updata`,params );};
