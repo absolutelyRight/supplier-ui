@@ -12,6 +12,10 @@ export const testApi = params => { return instance.post(`${process.env.API_ROOT}
 export const requestLogin = params => { return axios.get(`/static/user.json`, {}); };
 export const register = params => { return axios.post(`${base}/supplier/register`,params).then(res => res.data);};
 
+export const addTender = params => { return axios.post(`${process.env.API_ROOT}tender/add`, params).then(res => res.data); };
+
+export const getMessage = params => { return axios.post(`${process.env.API_ROOT}message/get`, params).then(res => res.data); };
+
 // export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 //
 // export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };

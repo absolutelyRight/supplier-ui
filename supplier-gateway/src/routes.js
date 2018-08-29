@@ -9,6 +9,7 @@ import BidingManage from './views/manage/BidingManage.vue'
 import BidManage from './views/manage/BidManage.vue'
 import SysIndex from './views/index/sysIndex.vue'
 import NoticeInfo from './views/information/NoticeInfo.vue'
+import MessageInfo from './views/information/MessageInfo.vue'
 import UserInfo from './views/setting/UserInfo.vue'
 import SettingInfo from './views/setting/SettingInfo.vue'
 import Register from './views/register/Register.vue'
@@ -71,6 +72,17 @@ let routes = [
         leaf:true,
         children:[
             {path: '/noticeInfo',component:NoticeInfo, name: '公告详情'}
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '消息详情',
+        role: ['admin','user'],
+        hidden: true,
+        leaf:true,
+        children:[
+            {path: '/noticeInfo',component:MessageInfo, name: '消息详情'}
         ]
     },
     {

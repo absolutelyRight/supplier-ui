@@ -57,12 +57,12 @@
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="openInfo()">查看详情</el-button>
+                    <el-button type="text" size="small" @click="openInfo(scope.row.id)">查看详情</el-button>
                 </template>
             </el-table-column>
             <el-table-column label="参与供应商" min-width="200">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small">查看参与供应商</el-button>
+                    <el-button type="text" size="small" @click="openTender(scope.row.id)">查看参与供应商</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -91,6 +91,7 @@
                 },
                 notices: [
                     {
+                        id:'1',
                         name:"品高Xx采购公告",
                         type:"软件服务",
                         creator: '老王',
@@ -100,6 +101,7 @@
                         time:"2018-7-26 23:21"
                     },
                     {
+                        id:'2',
                         name:"品高XX采购公告",
                         type:"硬件服务",
                         creator: '老王',
@@ -109,6 +111,7 @@
                         time:"2018-7-26 23:21"
                     },
                     {
+                        id:'1',
                         name:"品高XX采购公告",
                         type:"软件服务",
                         creator: '老王',
@@ -118,6 +121,7 @@
                         time:"2018-7-26 23:21"
                     },
                     {
+                        id:'1',
                         name:"品高XX采购公告",
                         type:"外包服务",
                         creator: '老王',
@@ -127,6 +131,7 @@
                         time:"2018-7-26 23:21"
                     },
                     {
+                        id:'1',
                         name:"品高XX采购公告",
                         type:"软件服务",
                         creator: '老王',
@@ -185,6 +190,9 @@
             },
             openInfo() {
                 this.$router.push({path: '/noticeInfo'});
+            },
+            openTender(id){
+                this.$router.push({name: '投标供应商列表',params:{purchaseId:id}});
             },
             //获取用户列表
             getUsers() {
