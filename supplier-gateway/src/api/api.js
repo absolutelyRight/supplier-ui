@@ -8,7 +8,9 @@ var instance = axios.create({
     headers: {'content-type': 'application/x-www-form-urlencoded'}
 });
 
-export const testApi = params => { return instance.post(`${process.env.API_ROOT}fang/get`, {}).then(res => res.data); };
+export const testApi = params => { return instance.post(`manager/fang/get`, {}).then(res => res.data); };
+export const supplierRegister = params => { return instance.post(`manager/supplier/add`, params).then(res => res.data); };
+export const getSuppliersList = params => { return instance.post(`manager/supplier/get`, {}).then(res => res.data); };
 export const requestLogin = params => { return axios.get(`/static/user.json`, {}); };
 export const register = params => { return axios.post(`${base}/supplier/register`,params).then(res => res.data);};
 

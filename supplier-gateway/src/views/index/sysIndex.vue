@@ -128,7 +128,7 @@
                         </el-form-item>
                         <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
                         <el-form-item style="width:100%;padding-left: 25px">
-                            <el-button type="primary" style="width:40%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+                            <el-button type="primary" style="width:40%;" @click.native.prevent="handleSubmit2">登录</el-button>
 
                             <router-link :to="{path:'/register'}">
                                 <el-button type="success" style="width:40%;">注册</el-button>
@@ -143,7 +143,7 @@
 </template>
 
 <script>
-    import { requestLogin,testApi } from '../../api/api';
+    import { requestLogin,getSuppliersList } from '../../api/api';
     import ElButton from "element-ui/packages/button/src/button";
     export default {
         components: {ElButton},
@@ -230,9 +230,6 @@
         mounted: function () {
             var user = sessionStorage.getItem('user');
             this.isLogin = !!user;
-            testApi().then(data => {
-                console.log(data);
-            })
         },
         methods: {
             tabClick(se){
@@ -247,12 +244,34 @@
                     if (valid) {
                         this.logining = true;
                         var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-                        requestLogin(loginParams).then(data => {
-                            if(data.data.uAccount === loginParams.username && data.data.uPassword === loginParams.password){
-                                sessionStorage.setItem('user',  JSON.stringify(data.data));
-                                this.reload();
+                        getSuppliersList({}).then(data=>{
+                            console.log(data);
+                            console.log(loginParams);
+                            var flag = false;
+                            for (var i = 0;i<data.length;i++){
+                                if (data[i].sEmailUrl === loginParams.username && data[i].confirmPassword === loginParams.password){
+                                    if (data[i].alreadyReview === "1"){
+                                        sessionStorage.setItem('user',  JSON.stringify(data[i]));
+                                        flag = true;
+                                        break;
+                                    } else {
+                                        this.$message({
+                                            message: '您的账号尚未通过审核！',
+                                            type: 'warning'
+                                        });
+                                        break;
+                                    }
+                                }
                             }
-                        });
+                            if (flag){
+                                this.reload();
+                            }else {
+                                this.$message({
+                                    message: '用户名或密码错误',
+                                    type: 'warning'
+                                });
+                            }
+                        })
                     } else {
                         console.log('error submit!!');
                         return false;

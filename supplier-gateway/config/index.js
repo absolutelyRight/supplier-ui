@@ -26,14 +26,22 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            '/supplier/': {
+            '/gateway/': {
+                target: 'http://localhost:8082/',
+                changeOrigin: true,
+                //路径重写
+                pathRewrite: {
+                    '^/gateway': ''
+                }
+            },
+            '/manager/': {
                 target: 'http://localhost:8084/',
                 changeOrigin: true,
                 //路径重写
                 pathRewrite: {
-                    '^/supplier': ''
+                    '^/manager': ''
                 }
-            }
+            },
         },
         host: 'localhost', // can be overwritten by process.env.HOST
         port: 8082, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
