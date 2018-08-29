@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { requestLogin } from '../api/api';
+  import { requestLogin,getSuppliersList } from '../api/api';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -42,7 +42,6 @@
     methods: {
       handleSubmit2(ev) {
         var _this = this;
-          console.log("dwqdqwdqwd")
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
             //_this.$router.replace('/table');
@@ -52,18 +51,6 @@
             requestLogin({}).then(data => {
                 console.log(JSON.stringify(data))
                 window.alert(data);
-              // this.logining = false;
-              // //NProgress.done();
-              // let { msg, code, user } = data;
-              // if (code !== 200) {
-              //   this.$message({
-              //     message: msg,
-              //     type: 'error'
-              //   });
-              // } else {
-              //   sessionStorage.setItem('user', JSON.stringify(user));
-              //   this.$router.push({ path: '/' });
-              // }
             });
           } else {
             console.log('error submit!!');

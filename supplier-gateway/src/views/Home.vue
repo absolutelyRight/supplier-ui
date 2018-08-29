@@ -150,8 +150,7 @@
 				user = JSON.parse(user);
 				this.isLogin = true;
                 this.role.push('user');
-				this.sysUserName = user.uName || '';
-				this.sysUserAvatar = user.avatar || '';
+				this.sysUserName = user.sShortName || '';
 			}else {
                 this.isLogin = false;
                 this.role = ['admin'];

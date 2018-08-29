@@ -5,9 +5,9 @@ var instance = axios.create({
 });
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
-export const testApi = params => { return instance.post(`${process.env.API_ROOT}fang/get`, {}).then(res => res.data); };
+export const testApi = params => { return instance.post(`manager/fang/get`, {}).then(res => res.data); };
 
-export const getSuppliersList = params => { return axios.get(`http://localhost:8080/static/suppliersList.json`, { params: params }); };
+export const getSuppliersList = params => { return instance.post(`manager/supplier/get`, {}).then(res => res.data); };
 
 export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 

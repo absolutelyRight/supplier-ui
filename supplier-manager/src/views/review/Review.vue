@@ -21,26 +21,15 @@
         </el-col>
 
         <el-table :data="suppliers" highlight-current-row v-loading="listLoading" style="width: 100%;">
-            <el-table-column prop="sName" label="供应商名称" width="120">
+            <el-table-column prop="sShortName" label="供应商名称" width="120">
             </el-table-column>
-            <el-table-column prop="creditCode" label="统一社会信用代码" min-width="150" >
+            <el-table-column prop="sSocialCreditCode" label="统一社会信用代码" min-width="150" >
             </el-table-column>
-            <el-table-column prop="network" label="公司网址" width="100">
+            <el-table-column prop="sUrl" label="公司网址" width="100">
             </el-table-column>
-            <el-table-column prop="product" label="经营范围" width="120">
+            <el-table-column prop="sProduct" label="经营范围" width="120">
             </el-table-column>
-            <el-table-column prop="registerTime" label="注册时间" min-width="180" sortable>
-            </el-table-column>
-            <el-table-column
-                    prop="alreadyAssess"
-                    label="是否确认"
-                    width="120"
-                    :filters="[{ text: '已确认', value: '已确认' }, { text: '未确认', value: '未确认' }]"
-                    :filter-method="filterAlreadyAssess"
-                    filter-placement="bottom-end">
-                <template slot-scope="scope">
-                    <el-tag :type="scope.row.alreadyAssess === '已确认' ? 'success' : 'primary'" disable-transitions>{{scope.row.alreadyAssess}}</el-tag>
-                </template>
+            <el-table-column prop="sFoundDate" label="注册时间" min-width="180" sortable>
             </el-table-column>
             <el-table-column
                     prop="alreadyReview"
@@ -83,36 +72,7 @@
                     timeLimit: '',
                     alreadyReview: ''
                 },
-                suppliers:[
-                    {
-                        sName : "xxx公司",
-                        creditCode : "W45614X",
-                        network : "www.baidu.com",
-                        product : "服务器",
-                        registerTime : "2017-03-20 12:34:07",
-                        alreadyAssess : "0",
-                        alreadyReview : "0"
-                    },
-                    {
-                        sName : "xxx公司",
-                        creditCode : "W45614X",
-                        network : "www.baidu.com",
-                        product : "服务器",
-                        registerTime : "2017-03-20 12:34:07",
-                        alreadyAssess : "0",
-                        alreadyReview : "1"
-                    },
-                    {
-                        sName : "xxx公司",
-                        creditCode : "W45614X",
-                        network : "www.baidu.com",
-                        product : "服务器",
-                        registerTime : "2017-03-20 12:34:07",
-                        alreadyAssess : "0",
-                        alreadyReview : "0"
-                    },
-
-                ],
+                suppliers:"",
                 listLoading: false
             }
         },
@@ -134,18 +94,16 @@
                 return row[property] === value;
             },
             getSuppliers() {
-                for (var i=0; i< this.suppliers.length; i++){
-                    if (this.suppliers[i].alreadyAssess == '0'){
-                        this.suppliers[i].alreadyAssess = '未确认';
-                    }else if(this.suppliers[i].alreadyAssess == '1'){
-                        this.suppliers[i].alreadyAssess = '已确认';
+                getSuppliersList().then(data => {
+                    this.suppliers = data;
+                    for (var i=0; i< this.suppliers.length; i++){
+                        if (this.suppliers[i].alreadyReview == '0'){
+                            this.suppliers[i].alreadyReview = '未审核';
+                        }else if(this.suppliers[i].alreadyReview == '1'){
+                            this.suppliers[i].alreadyReview = '已审核';
+                        }
                     }
-                    if (this.suppliers[i].alreadyReview == '0'){
-                        this.suppliers[i].alreadyReview = '未审核';
-                    }else if(this.suppliers[i].alreadyReview == '1'){
-                        this.suppliers[i].alreadyReview = '已审核';
-                    }
-                }
+                });
             },
         },
         mounted() {

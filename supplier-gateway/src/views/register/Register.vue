@@ -8,7 +8,6 @@
             <label style="font-size: 18px;color: #909399">公司概况</label>
         </el-col>
 
-
         <el-form :model="ruleForm" v-if="showForm1"  :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
             <el-col :span="7">
                 <el-form-item label="公司名称" prop="sFullName">
@@ -56,14 +55,8 @@
                 </el-form-item>
             </el-col>
             <el-col :span="8">
-                <el-form-item label="E-mail(将作为您的账号)" prop="sEmailUrl" style="width: 500px">
+                <el-form-item label="E-mail(将作为您的账号)" prop="sEmailUrl" >
                     <el-input v-model="ruleForm.sEmailUrl"></el-input>
-                    <el-button type="primary" style="margin-left: 260px;margin-top: 5px">发送验证码</el-button>
-                </el-form-item>
-            </el-col>
-            <el-col :span="6">
-                <el-form-item label="邮箱验证码" prop="sEmailCode" style="width: 380px">
-                    <el-input v-model="ruleForm.sEmailCode"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="7">
@@ -127,7 +120,19 @@
                     <el-input v-model="ruleForm.sAvgIncome"></el-input>
                 </el-form-item>
             </el-col>
-
+            <el-upload
+                    class="upload-demo"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="3"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                <el-button size="small" type="primary">公司文件上传</el-button>
+                <div slot="tip" class="el-upload__tip">多个文件请上传压缩包</div>
+            </el-upload>
             <div class="formFooter">
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -138,7 +143,7 @@
     </section>
 </template>
 <script>
-    import { register } from '../../api/api';
+    import {register, supplierRegister} from '../../api/api';
     import ElButton from "element-ui/packages/button/src/button";
 
     export default {
@@ -146,32 +151,35 @@
         data() {
             return {
                 ruleForm: {
-                    sFullName: '',
-                    sFax: '',
-                    sShortName: '',
-                    sSocialCreditCode: '',
-                    sUrl: '',
-                    sPassword: '',
-                    sPhone: '',
-                    sAddress: '',
-                    sDeputy: '',
-                    confirmPassword: '',
-                    sEmailUrl: '',
-                    sContact: '',
-                    sEmailCode: '',
-                    sMoney: 0,
-                    sRealMoney: 0,
-                    sFoundDate: '',
-                    sAvgIncome: 0,
-                    sBankName: '',
-                    sBankCredit: '',
-                    sBankAccount: '',
-                    sBankAccountName: '',
-                    sProduct: '',
-                    sClient: '',
-                    sAbility: ''
+                    sFullName: "",
+                    sFax: "",
+                    sShortName: "",
+                    sSocialCreditCode: "",
+                    sUrl: "",
+                    sPassword: "",
+                    sPhone: "",
+                    sAddress: "",
+                    sDeputy: "",
+                    confirmPassword: "",
+                    sEmailUrl: "",
+                    sContact: "",
+                    sEmailCode: "",
+                    sMoney: "",
+                    sRealMoney: "",
+                    sFoundDate: "",
+                    sAvgIncome: "",
+                    sBankName: "",
+                    sBankCredit: "",
+                    sBankAccount: "",
+                    sBankAccountName: "",
+                    sProduct: "",
+                    sClient: "",
+                    sAbility: "",
+                    alreadyAssess: '0',
+                    alreadyReview: '0'
 
                 },
+                fileList: [],
                 options: [{
                     value: '硬件',
                     label: '硬件',
@@ -261,7 +269,7 @@
                 showForm2:false,
                 showForm3:false,
                 showForm4:false,
-                selectedOptions: '',
+                selectedOptions: "",
                 rules: {
                     sFullName: [
                         { required: true, message: '请输入公司全称', trigger: 'blur' }
@@ -320,6 +328,18 @@
             };
         },
         methods: {
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -330,7 +350,9 @@
                             // register(this.ruleForm).then(data => {
                             //     console.log(data);
                             // });
-                            console.log(this.ruleForm);
+                            supplierRegister(this.ruleForm).then(data => {
+                                console.log(data);
+                            })
                         }
                     } else {
                         console.log('注册失败!!');

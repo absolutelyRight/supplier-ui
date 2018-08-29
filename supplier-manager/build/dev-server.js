@@ -182,6 +182,41 @@ app.use("/message/get",function (req, res, next) {
     });
 });
 
+app.use("/supplier/add",function (req,res,next) {
+    model.supplier.push({
+        "sFullName": "完全正确科技有限公司",
+        "sFax": "",
+        "sShortName": '完全正确',
+        "sSocialCreditCode": "91371624MA3DLD696N",
+        "sUrl": "https://github.com/absolutelyRight",
+        "sPassword": "admin",
+        "sPhone": "13060369239",
+        "sAddress": "西班牙马德里伯纳乌大街10号",
+        "sDeputy": "RAUL",
+        "confirmPassword": "admin",
+        "sEmailUrl": "123456@163.com",
+        "sContact": "RAUL",
+        "sMoney": 1000,
+        "sRealMoney": 1000,
+        "sFoundDate": "2016-8-6 10:20:16",
+        "sAvgIncome": 500000,
+        "sBankName": '中国建设银行',
+        "sBankCredit": "优秀",
+        "sBankAccount": '610849845106548545',
+        "sBankAccountName": "RAUL",
+        "sProduct": "服务器",
+        "sClient": "百度、阿里、腾讯",
+        "sAbility": '国家一级服务器供应商',
+        "alreadyAssess": "0",
+        "alreadyReview": "0"
+    });
+    res.send(req.body);
+})
+
+app.use("/supplier/get",function (req,res,next) {
+    res.send(model.supplier);
+})
+
 var uri = 'http://localhost:' + port
 
 var _resolve
