@@ -175,11 +175,31 @@ app.use("/message/get",function (req, res, next) {
         res.send(null);
         return;
     }
-    model.messages.forEach(function (e){
+    model.message.forEach(function (e){
         if(e.id== id){
             res.send(e);
         }
     });
+});
+app.use("/message/list",function (req, res, next) {
+    var pageIndex=req.body.pageIndex|| 1,pageSize=10,
+        name=req.body.name;
+    var list = model.message.filter(e=>!name||e.title.indexOf(name)>-1);
+    var total = list.length;
+    list=list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
+    list.forEach(function (e) {
+        model.user.forEach(function (u) {
+            if(u.uId== e.createrId){
+                e.createrName= u.uName;
+            }
+        })
+    });
+    var page={
+        list: list,
+        total: total,
+        totalPage:Math.ceil(total/pageSize)
+    };
+    res.send(page);
 });
 //********************fang********************
 app.use("/notice/get",function (req, res, next) {
