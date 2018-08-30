@@ -93,6 +93,7 @@ app.use("/fang/get",function (req, res, next) {
 })
 app.use("/tender/add",function (req, res, next) {
     var tender = req.body;
+    console.log(tender);
     tender.id=model.tenders[model.tenders.length-1]+1;
     model.tenders.push(tender);
     res.send(true);
@@ -250,6 +251,13 @@ app.use("/message/list",function (req, res, next) {
 //********************fang********************
 app.use("/notice/get",function (req, res, next) {
     res.send(model.notics);
+})
+app.use("/notice/getid",function (req, res, next) {
+    for (let i in model.notics){
+        if(req.body.id == model.notics[i].id){
+            res.send(model.notics[i]);
+        }
+    }
 })
 app.use("/notice/add",function (req, res, next) {
     req.body.id=model.notics.length+1;

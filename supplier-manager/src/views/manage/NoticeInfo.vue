@@ -1,25 +1,23 @@
 <template>
     <section>
         <!--工具条-->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" :model="filters">
-                <el-form-item style="float: right">
-                    <el-button type="primary" v-on:click="goBack">返回</el-button>
-                </el-form-item>
-            </el-form>
-        </el-col>
-
         <div style="padding-top: 100px;
                     padding-bottom: 20px;" v-html="noticeInfo"></div>
-
+        <el-button type="primary" @click="download" plain >下载附件</el-button>
+        <el-button type="success" @click="agree" plain>审核通过</el-button>
+        <el-button type="danger"  @click="refuse" plain>审核不通过</el-button>
+        <el-button type="primary" @click="refuse" plain>返回</el-button>
     </section>
 </template>
 
 <script>
+    import {getNoticeId} from '../../api/api';
+    import {updataNotice} from '../../api/api';
     export default {
         name: "",
         data() {
             return {
+                notice: {},
                 noticeInfo: "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><strong style=\"margin: 0px; padding: 0px;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">一、招标编号：</span></strong><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">JWC/H-20170816-056</span></p>\n" +
                 "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><strong style=\"margin: 0px; padding: 0px;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">二、项目概况：</span></strong></p>\n" +
                 "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">&nbsp;&nbsp;&nbsp;&nbsp;1.项目地点：江苏建筑职业技术学院内。</span></p>\n" +
@@ -34,9 +32,33 @@
                 "<p style=\"margin: 0px 0px 0px 28px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">7</span><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">、详见招标文件。</span></p>\n"
             }
         },
-        methods:{
-            goBack(){
+        methods: {
+            download(){
+                window.location.href = 'http://localhost:8084/static/公司简介.zip';
+            },
+            agree() {
+                this.notice.reviewStatus= "审核通过";
+                updataNotice(this.notice);
                 this.$router.back(-1);
+            },
+            refuse() {
+                this.notice.reviewStatus = "审核未通过";
+                updataNotice(this.notice);
+                this.$router.back(-1);
+            },
+            goBack() {
+                this.$router.back(-1);
+            }
+        },
+        mounted() {
+            if (this.$route.params.id) {
+                getNoticeId({id: this.$route.params.id}).then(data => {
+                        this.notice = data;
+                        if (data.noticeInfo != null) {
+                            this.noticeInfo = this.notice.noticeInfo;
+                        }
+                    }
+                );
             }
         }
     }

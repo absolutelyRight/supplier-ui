@@ -119,7 +119,8 @@ let routes = [
         hidden: true,
         leaf:true,
         children:[
-            {path: '/noticeInfo',component:NoticeInfo, name: '公告详情'}
+            {path: '/noticeInfo',component:NoticeInfo, name: '公告详情'},
+            {path: '/noticeInfo/:id',component:NoticeInfo, name: '公告详情'}
         ]
     },
 

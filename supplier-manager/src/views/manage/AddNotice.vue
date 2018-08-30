@@ -6,10 +6,18 @@
                     <el-option label="普通公告" value="普通公告"></el-option>
                     <el-option label="招标公告" value="招标公告"></el-option>
                     <el-option label="中标公告" value="中标公告"></el-option>
+                    <el-option label="采购公告" value="采购公告"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="公告名称" prop="name" style="width: 300px">
+            <el-form-item label="公告名称" prop="name" style="width: 300px;">
                 <el-input v-model="ruleForm.name"></el-input>
+            </el-form-item>
+            <el-form-item label="截止日期"  style="width: 300px;">
+                <el-date-picker
+                        v-model="ruleForm.endtime"
+                        type="date"
+                        end-placeholder="结束日期">
+                </el-date-picker>
             </el-form-item>
             <div>
                 <editor id='tinymce' v-model='tinymceHtml' :init='init'></editor>
@@ -26,9 +34,6 @@
                     :file-list="fileList">
                 <el-button size="small" type="primary" style="margin-top: 30px">上传附件</el-button>
             </el-upload>
-            <el-form-item label="截止时间" prop="endtime" style="width: 300px">
-                <el-input v-model="ruleForm.endtime"></el-input>
-            </el-form-item>
             <el-form-item style="margin-left: 400px">
                 <el-button type="primary" @click=submitForm(ruleForm)>提交</el-button>
                 <el-button @click=resetForm(ruleForm)>重置</el-button>
@@ -66,7 +71,8 @@
                     delivery: false,
                     type: [],
                     resource: '',
-                    desc: ''
+                    desc: '',
+                    endtime:""
                 },
                 rules: {
                     name: [
@@ -95,9 +101,10 @@
                     "name": formName.name,
                     "type": formName.noticeType,
                     "creater": "张某某",
-                    "time": util.formatDate.format(new Date(), "yyyy-MM-dd hh:mm"),
+                    "time": util.formatDate.format(new Date(), "yyyy-MM-dd"),
                     reviewStatus: '审核中',
-                    endtime:formName.endtime
+                    noticeInfo:this.tinymceHtml,
+                    endtime:util.formatDate.format(this.ruleForm.endtime, "yyyy-MM-dd")
                 };
                 console.log(resnoticedata);
                 addNotice(resnoticedata);

@@ -24,7 +24,7 @@
                     prop="type"
                     label="公告类型"
                     min-width="150"
-                    :filters="[{ text: '招标公告', value: '招标公告' }, { text: '普通公告', value: '普通公告' }, { text: '中标公告', value: '中标公告' }]"
+                    :filters="[{ text: '招标公告', value: '招标公告' }, {text: '采购公告', value: '采购公告'},{ text: '普通公告', value: '普通公告' }, { text: '中标公告', value: '中标公告' }]"
                     :filter-method="filterTag"
                     filter-placement="bottom-end">
                 <template slot-scope="scope">
@@ -33,6 +33,22 @@
                     </el-tag>
                 </template>
             </el-table-column>
+            <el-table-column
+                    prop="reviewStatus"
+                    label="审核状态"
+                    width="120"
+                    :filters="[{ text: '审核中', value: '审核中' }, { text: '通过', value: '通过' },{ text: '未通过', value: '未通过' }]"
+                    :filter-method="filterAlreadyReview"
+                    filter-placement="bottom-end">
+                <template slot-scope="scope">
+                    <el-tag :type="scope.row.reviewStatus === '审核通过' ?
+                    'success' :
+                    scope.row.reviewStatus === '审核未通过' ? 'danger':
+                    'primary'" disable-transitions>{{scope.row.reviewStatus}}</el-tag>
+                </template>
+            </el-table-column>
+            <!--<el-table-column prop="reviewStatus" label="状态" min-width="100">-->
+            <!--</el-table-column>-->
             <el-table-column prop="creater" label="发布人" min-width="100">
             </el-table-column>
             <el-table-column prop="time" label="发布时间" min-width="200">
@@ -41,13 +57,7 @@
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="openInfo(scope.row.info)" size="small">查看详情</el-button>
-                </template>
-            </el-table-column>
-            <el-table-column label="操作" min-width="250">
-                <template slot-scope="scope">
-                    <el-button type="danger" size="small" @click="handleOn(scope.$index, scope.row)">通过</el-button>
-                    <el-button type="primary" size="small" @click="handleOff(scope.$index, scope.row)">不通过</el-button>
+                    <el-button type="text" @click="openInfo(scope.row)" size="small">查看详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -123,11 +133,8 @@
             },
             getnotices() {
                 getNotices().then(data => {
-                    console.log(data.data);
                     for (let i in data.data) {
-                        if (data.data[i].reviewStatus == "审核中") {
                             this.notices.push(data.data[i])
-                        }
                     }
                     //this.notices = data.data
                 }).catch(function (response) {
@@ -160,7 +167,8 @@
             },
             handleOff: function (index, row) {
                 row.reviewStatus = "审核未通过";
-                updataNotice(row)
+                updataNotice(row);
+                this.getnotices();
             },
             //删除
             handleDel: function (index, row) {
@@ -184,7 +192,8 @@
                 });
             },
             openInfo(info) {
-                this.$router.push({path: '/noticeInfo'});
+                let path='/noticeInfo/'+info.id;
+                this.$router.push({path:path});
             },
             selsChange: function (sels) {
                 this.sels = sels;
