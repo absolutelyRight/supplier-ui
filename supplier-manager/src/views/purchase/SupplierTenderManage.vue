@@ -49,6 +49,7 @@
                 small
                 layout="prev, pager, next"
                 :total="total"
+				:size="10"
                 style="float: right"
         >
         </el-pagination>
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-    import { getTender,selectTender,defineTender } from '../../api/api';
+    import { getTenderList,selectTender,defineTender } from '../../api/api';
     export default {
         data() {
             return {
@@ -115,9 +116,9 @@
             },
             //获取用户列表
             getUsers() {
-                getTender({purchaseId:this.$route.params.purchaseId}).then(data=>{
-                    if(data&&data.list.length){
-                        this.tenders.length=0;
+                getTenderList({purchaseId:this.$route.params.purchaseId}).then(data=>{
+                    if(data){
+                        this.tenders=[];
                         data.list.forEach(e=>{
                             this.tenders.push(e);
                             if(e.status==2){

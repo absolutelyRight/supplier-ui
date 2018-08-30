@@ -22,7 +22,7 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
 
-export const getTender = params => {return axios.post(`${process.env.API_ROOT}tender`, params).then(res => res.data); };
+export const getTenderList = params => {return axios.post(`${process.env.API_ROOT}tender/list`, params).then(res => res.data); };
 
 export const selectTender = params => { return axios.post(`${process.env.API_ROOT}tender/select`, params).then(res => res.data); };
 

@@ -82,7 +82,7 @@ let routes = [
         hidden: true,
         leaf:true,
         children:[
-            {path: '/noticeInfo',component:MessageInfo, name: '消息详情'}
+            {path: '/messageInfo',component:MessageInfo, name: '消息详情'}
         ]
     },
     {

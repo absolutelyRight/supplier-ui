@@ -11,6 +11,7 @@ import DemandNotice from './views/purchase/DemandNotice.vue'
 import EvaluateManager from './views/purchase/EvaluateManager.vue'
 import NoticeInfo from './views/manage/NoticeInfo.vue'
 import TenderManager from './views/purchase/TenderManager.vue'
+import TenderInfo from './views/purchase/TenderInfo.vue'
 import SupplierTenderManage from './views/purchase/SupplierTenderManage.vue'
 import AddSupplier from './views/manage/AddSupplier.vue'
 import AddNotice from './views/manage/AddNotice.vue'
@@ -129,6 +130,17 @@ let routes = [
         leaf:true,
         children:[
             {path: '/supplierTenderManage',component:SupplierTenderManage, name: '投标供应商列表'}
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '投标详情',
+        role: ['admin','user'],
+        hidden: true,
+        leaf:true,
+        children:[
+            {path: '/tenderInfo',component:TenderInfo, name: '投标详情'}
         ]
     },
     {

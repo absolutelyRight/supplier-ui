@@ -129,13 +129,14 @@ app.use("/tender/define",function (req, res, next) {
             purchase.definedSupplierId= t.supplierId;
 
             var msg={
-                id:model.messages.length,
+                id:model.message.length+1+'',
                 supplierId:t.supplierId,
                 title:'中标通知',
                 content:`您已中标【${purchase.name}】采购项目，请等待平台与您联系`,
-                createTime:Date.now()
+                createTime:Date.now(),
+                createrId:'1'
             };
-            model.messages.push(msg);
+            model.message.push(msg);
             res.send(true);
         }
         else {
@@ -143,9 +144,8 @@ app.use("/tender/define",function (req, res, next) {
         }
     }
 });
-app.use("/tender",function (req, res, next) {
+app.use("/tender/list",function (req, res, next) {
     var pageIndex=req.body.pageIndex|| 1,pageSize=10;
-    var total = model.tenders.length;
     var purchaseId = req.body.purchaseId;
     if(!purchaseId) {
         res.send(null);
@@ -153,11 +153,13 @@ app.use("/tender",function (req, res, next) {
     }
     var list = model.tenders.filter(function (e){
         return e.purchaseId== purchaseId
-    }).slice((pageIndex-1)*pageSize,pageSize*pageIndex);
+    });
+    var total = list.length;
+    list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
     list.forEach(function (e) {
-        model.suppliers.forEach(function (s) {
-            if(s.id== e.supplierId){
-                e.name= s.name;
+        model.supplier.forEach(function (s) {
+            if(s.sId== e.supplierId){
+                e.name= s.sShortName;
             }
         })
     });
@@ -175,11 +177,31 @@ app.use("/message/get",function (req, res, next) {
         res.send(null);
         return;
     }
-    model.messages.forEach(function (e){
+    model.message.forEach(function (e){
         if(e.id== id){
             res.send(e);
         }
     });
+});
+app.use("/message/list",function (req, res, next) {
+    var pageIndex=req.body.pageIndex|| 1,pageSize=10,
+        name=req.body.name;
+    var list = model.message.filter(e=>!name||e.title.indexOf(name)>-1);
+    var total = list.length;
+    list=list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
+    list.forEach(function (e) {
+        model.user.forEach(function (u) {
+            if(u.uId== e.createrId){
+                e.createrName= u.uName;
+            }
+        })
+    });
+    var page={
+        list: list,
+        total: total,
+        totalPage:Math.ceil(total/pageSize)
+    };
+    res.send(page);
 });
 
 app.use("/supplier/add",function (req,res,next) {

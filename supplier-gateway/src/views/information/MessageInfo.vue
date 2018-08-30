@@ -1,29 +1,19 @@
 <template>
     <section>
-        <!--工具条-->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-            <el-form :inline="true" :model="filters">
-                <el-form-item >
-                    <el-button type="text">{{title}}</el-button>
-                </el-form-item>
-                <el-form-item >
-                    <el-button type="text">{{createTime}}</el-button>
-                </el-form-item>
-                <el-form-item style="float: right">
-                    <el-button type="primary" v-on:click="goBack">返回</el-button>
-                </el-form-item>
-            </el-form>
-        </el-col>
-
-        <div style="padding-top: 100px;
-                    padding-bottom: 20px;" v-html="noticeInfo"></div>
-
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span class='title'>{{title}}</span>
+            <el-button style="float: right; padding: 3px 0" type="text" v-on:click="goBack">返回</el-button>
+          </div>
+          <div v-html="noticeInfo" class="text"></div>
+          <div class="time">{{createTime}}</div>
+        </el-card>
     </section>
 </template>
 
 <script>
     import { getMessage } from '../../api/api';
-    import { format } from '../../common/js/util';
+    import util from '../../common/js/util';
     export default {
         name: "",
         data() {
@@ -41,13 +31,25 @@
         mounted(){
             getMessage({id:this.$route.params.id}).then(data=>{
                 this.noticeInfo=data.content;
-                this.createTime=format(new Date(data.createTime),'yyyy/MM/dd');
+                this.createTime=util.formatDate.format(new Date(data.createTime),'yyyy/MM/dd');
                 this.title=data.title;
+
             })
         }
     }
 </script>
 
 <style scoped>
-
+.text{
+    color:#666;
+    min-height: 200px;
+}
+.time{
+    text-align:right;
+    padding:10px 0
+}
+.box-card .title{
+    font-weight:bold;
+    font-size: 16px;
+}
 </style>

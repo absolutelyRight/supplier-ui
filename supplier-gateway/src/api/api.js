@@ -18,6 +18,8 @@ export const addTender = params => { return axios.post(`${process.env.API_ROOT}t
 
 export const getMessage = params => { return axios.post(`${process.env.API_ROOT}message/get`, params).then(res => res.data); };
 
+export const getMessageList = params => { return axios.post(`${process.env.API_ROOT}message/list`, params).then(res => res.data); };
+
 // export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 //
 // export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };

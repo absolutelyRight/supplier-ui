@@ -16,13 +16,13 @@
 		<el-table :data="notices" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<el-table-column prop="title" label="标题" min-width="200">
 			</el-table-column>
-			<el-table-column prop="time" label="时间" min-width="200" sortable>
+			<el-table-column prop="createTime" label="时间" min-width="200" sortable>
 			</el-table-column>
-			<el-table-column prop="creater" label="发布人" min-width="200">
+			<el-table-column prop="createrName" label="发布人" min-width="200">
 			</el-table-column>
 			<el-table-column label="详情" min-width="200">
 				<template slot-scope="scope">
-					<el-button size="small" type="text" @click="openInfo(scope.row.info)">查看详情</el-button>
+					<el-button size="small" type="text" @click="openInfo(scope.row.id)">查看详情</el-button>
 				</template>
 			</el-table-column>
 			<el-table-column label="操作" min-width="150">
@@ -37,7 +37,8 @@
 		<el-pagination
 				small
 				layout="prev, pager, next"
-				:total="50"
+				:total="total"
+				:size="10"
 				style="float: right"
 		>
 		</el-pagination>
@@ -46,7 +47,8 @@
 </template>
 
 <script>
-    import { removeUser} from '../../api/api';
+    import { getMessageList} from '../../api/api';
+    import util from '../../common/js/util';
 
     export default {
         data() {
@@ -54,38 +56,7 @@
                 filters: {
                     name: ''
                 },
-                notices: [
-                    {
-                        title:"品高XX公告",
-                        time:"2018-7-26 15:50",
-                        creater:"完全正确",
-						info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    },
-                    {
-                        title:"品高XX公告",
-                        time:"2018-7-26 15:50",
-                        creater:"完全正确",
-                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    },
-                    {
-                        title:"品高XX公告",
-                        time:"2018-7-26 15:50",
-                        creater:"完全正确",
-                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    },
-                    {
-                        title:"品高XX公告",
-                        time:"2018-7-26 15:50",
-                        creater:"完全正确",
-                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    },
-                    {
-                        title:"品高XX公告",
-                        time:"2018-7-26 15:50",
-                        creater:"完全正确",
-                        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    }
-                ],
+                notices: [],
                 total: 0,
                 page: 1,
                 listLoading: false,
@@ -133,10 +104,21 @@
             },
             //获取用户列表
             getUsers() {
-
+                getMessageList({name:this.filters.name}).then(data=>{
+                    if(data){
+                        this.notices=[];
+                        data.list.forEach(e=>{
+                            this.notices.push(e);
+                            e.createTime=util.formatDate.format(new Date(e.createTime),'yyyy/MM/dd')
+                        })
+                        this.total=data.total;
+                    }
+                },res=>{
+                    console.log(res)
+                })
             },
-            openInfo(info) {
-                this.$router.push({path: '/noticeInfo'});
+            openInfo(id) {
+                this.$router.push({name: '消息详情',params:{id:id}});
             },
             //删除
             handleDel: function (index, row) {
