@@ -118,7 +118,7 @@
                 })
             },
             openInfo(id) {
-                this.$router.push({name: '消息详情',params:{id:id}});
+                this.$router.push({path: '/messageInfo/'+id});
             },
             //删除
             handleDel: function (index, row) {

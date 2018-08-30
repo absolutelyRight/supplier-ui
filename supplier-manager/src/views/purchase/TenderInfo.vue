@@ -31,7 +31,7 @@
                      <label class="el-form-item__label" style="width: 120px;">公司简称</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sFax}}</span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sShortName}}</span>
                          </div>
                      </div>
                  </div>
@@ -41,7 +41,7 @@
                      <label class="el-form-item__label" style="width: 120px;">统一信用代码</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sSocialCreditCode}}</span>
                          </div>
                      </div>
                  </div>
@@ -51,7 +51,7 @@
                      <label class="el-form-item__label" style="width: 120px;">公司网址</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sUrl}}</span>
                          </div>
                      </div>
                  </div>
@@ -61,7 +61,7 @@
                      <label class="el-form-item__label" style="width: 120px;">电话</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sPhone}}</span>
                          </div>
                      </div>
                  </div>
@@ -71,7 +71,7 @@
                      <label class="el-form-item__label" style="width: 120px;">地址</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sAddress}}</span>
                          </div>
                      </div>
                  </div>
@@ -81,7 +81,7 @@
                      <label class="el-form-item__label" style="width: 120px;">法定代表人</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sDeputy}}</span>
                          </div>
                      </div>
                  </div>
@@ -91,7 +91,7 @@
                      <label class="el-form-item__label" style="width: 120px;">联系人</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sContact}}</span>
                          </div>
                      </div>
                  </div>
@@ -101,7 +101,7 @@
                      <label class="el-form-item__label" style="width: 120px;">邮箱</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.sEmailUrl}}</span>
                          </div>
                      </div>
                  </div>
@@ -111,7 +111,7 @@
                      <label class="el-form-item__label" style="width: 120px;">投标次数</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.tenderTime}}</span>
                          </div>
                      </div>
                  </div>
@@ -121,7 +121,7 @@
                      <label class="el-form-item__label" style="width: 120px;">中标次数</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.winTime}}</span>
                          </div>
                      </div>
                  </div>
@@ -131,16 +131,38 @@
                      <label class="el-form-item__label" style="width: 120px;">评分</label>
                      <div class="el-form-item__content" style="margin-left: 120px;">
                          <div class="el-input">
-                             <span type="text" autocomplete="off" class="el-input__inner"></span>
+                             <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.score}}</span>
                          </div>
                      </div>
                  </div>
              </el-col>
+            <el-col :span="7">
+                <div class="el-form-item">
+                    <label class="el-form-item__label" style="width: 120px;">报价</label>
+                    <div class="el-form-item__content" style="margin-left: 120px;">
+                        <div class="el-input">
+                            <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.price}}元</span>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="7">
+                <div class="el-form-item">
+                    <label class="el-form-item__label" style="width: 120px;">提交时间</label>
+                    <div class="el-form-item__content" style="margin-left: 120px;">
+                        <div class="el-input">
+                            <span type="text" autocomplete="off" class="el-input__inner">{{ruleForm.time}}</span>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
         </el-form>
+        <el-col :span="21" style="text-align: right"><el-button  type="primary" plain v-on:click="download">下载附件</el-button></el-col>
     </section>
 </template>
 <script>
-    import {register, supplierRegister} from '../../api/api';
+    import {getTender} from '../../api/api';
+    import util from '../../common/js/util';
     import ElButton from "element-ui/packages/button/src/button";
 
     export default {
@@ -153,14 +175,11 @@
                     sShortName: "",
                     sSocialCreditCode: "",
                     sUrl: "",
-                    sPassword: "",
                     sPhone: "",
                     sAddress: "",
                     sDeputy: "",
-                    confirmPassword: "",
                     sEmailUrl: "",
                     sContact: "",
-                    sEmailCode: "",
                     sMoney: "",
                     sRealMoney: "",
                     sFoundDate: "",
@@ -173,8 +192,12 @@
                     sClient: "",
                     sAbility: "",
                     alreadyAssess: '0',
-                    alreadyReview: '0'
-
+                    alreadyReview: '0',
+                    score:0,
+                    tenderTime:0,
+                    winTime:0,
+                    price:'',
+                    time:''
                 },
                 fileList: [],
                 options: [{
@@ -262,10 +285,6 @@
                         label: '其他'
                     }]
                 }],
-                showForm1:true,
-                showForm2:false,
-                showForm3:false,
-                showForm4:false,
                 selectedOptions: "",
                 rules: {
                     sFullName: [
@@ -339,7 +358,30 @@
             },
             goBack(){
                 this.$router.back(-1);
+            },
+            download(){
+                location.href='/static/公司简介.zip';
             }
+        },
+        mounted(){
+            console.log(1);
+            getTender({id:this.$route.params.id}).then(data=>{
+                this.ruleForm.sAddress=data.sAddress;
+                this.ruleForm.sContact=data.sContact;
+                this.ruleForm.score=data.score||"无";
+                this.ruleForm.sDeputy=data.sDeputy;
+                this.ruleForm.sEmailUrl=data.sEmailUrl;
+                this.ruleForm.sFax=data.sFax;
+                this.ruleForm.sFullName=data.sFullName;
+                this.ruleForm.sPhone=data.sPhone;
+                this.ruleForm.sShortName=data.sShortName;
+                this.ruleForm.sSocialCreditCode=data.sSocialCreditCode;
+                this.ruleForm.sUrl=data.sUrl;
+                this.ruleForm.tenderTime=data.tenderTime;
+                this.ruleForm.winTime=data.winTime;
+                this.ruleForm.time=util.formatDate.format(new Date(data.time),'yyyy/MM/dd');
+                this.ruleForm.price=data.price;
+            });
         }
     }
 </script>

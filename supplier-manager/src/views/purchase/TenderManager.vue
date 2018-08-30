@@ -192,7 +192,7 @@
                 this.$router.push({path: '/noticeInfo'});
             },
             openTender(id){
-                this.$router.push({name: '投标供应商列表',params:{purchaseId:id}});
+                this.$router.push({path: '/supplierTenderManage/'+id});
             },
             //获取用户列表
             getUsers() {

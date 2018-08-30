@@ -1,4 +1,5 @@
-exports.user = [{
+exports.user=[{
+    uId:'1',
     "uAccount": "admin",
     "uPassword": "admin",
     "uName": "张三"
@@ -32,6 +33,7 @@ exports.tenders=[{
 
 exports.supplier = [
     {
+        sId:'1',
         "sFullName": "无",
         "sFax": "无",
         "sPassword": "无",
@@ -59,6 +61,7 @@ exports.supplier = [
         confirmPassword: "123456",
     },
     {
+        sId:'2',
         "sFullName": "无",
         "sFax": "无",
         "sPassword": "无",

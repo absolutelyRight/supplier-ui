@@ -18,7 +18,7 @@
         name: "",
         data() {
             return {
-                noticeInfo: "<br><br><br><br><br><br>",
+                noticeInfo: "",
                 createTime:'',
                 title:''
             }

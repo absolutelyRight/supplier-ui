@@ -185,7 +185,36 @@ app.use("/tender/list",function (req, res, next) {
     };
     res.send(page);
 });
-
+function deepClone(e){
+    return JSON.parse(JSON.stringify(e));
+}
+app.use("/tender/get", function (req, res, next) {
+    var id=req.body.id,result=null;
+    if(model.tenders.some(t=>{
+        if(t.id==id){
+            if(model.supplier.some(s=>{
+                if(s.sId==t.supplierId){
+                    result=deepClone(s);
+                    var tenders=model.tenders.filter(tt=>tt.supplierId==s.sId);
+                    result.tenderTime=tenders.length;
+                    tenders=tenders.filter(tt=>tt.status==2);
+                    result.winTime=tenders.length;
+                    tenders=tenders.filter(tt=>!!tt.score);
+                    var sum=tenders.map(ts=>ts.score).reduce((a,b)=>a+b,0);
+                    result.score=tenders.length?sum/tenders.length:0;
+                    result.time=t.time;
+                    result.price=t.price;
+                    return true
+                }
+            }))
+            return true;
+        }
+    })){
+        res.send(result);
+    }else{
+        res.send(null);
+    }
+})
 app.use("/message/get",function (req, res, next) {
     var id = req.body.id;
     if(!id) {

@@ -142,7 +142,7 @@ let routes = [
         hidden: true,
         leaf:true,
         children:[
-            {path: '/supplierTenderManage',component:SupplierTenderManage, name: '投标供应商列表'}
+            {path: '/supplierTenderManage/:purchaseId',component:SupplierTenderManage, name: '投标供应商列表'}
         ]
     },
     {
@@ -153,7 +153,7 @@ let routes = [
         hidden: true,
         leaf:true,
         children:[
-            {path: '/tenderInfo',component:TenderInfo, name: '投标详情'}
+            {path: '/tenderInfo/:id',component:TenderInfo, name: '投标详情'}
         ]
     },
     {

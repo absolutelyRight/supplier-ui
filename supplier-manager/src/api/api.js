@@ -32,6 +32,8 @@ export const updataNotice = params => {return axios.post(`manager/notice/updata`
 
 export const getTenderList = params => {return axios.post(`${process.env.API_ROOT}tender/list`, params).then(res => res.data); };
 
+export const getTender = params => {return axios.post(`${process.env.API_ROOT}tender/get`, params).then(res => res.data); };
+
 export const selectTender = params => { return axios.post(`${process.env.API_ROOT}tender/select`, params).then(res => res.data); };
 
 export const defineTender = params => { return axios.post(`${process.env.API_ROOT}tender/define`, params).then(res => res.data); };
