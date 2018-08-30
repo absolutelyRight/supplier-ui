@@ -129,14 +129,13 @@ app.use("/tender/define",function (req, res, next) {
             purchase.definedSupplierId= t.supplierId;
 
             var msg={
-                id:model.message.length+1+'',
+                id:model.messages.length,
                 supplierId:t.supplierId,
                 title:'中标通知',
                 content:`您已中标【${purchase.name}】采购项目，请等待平台与您联系`,
-                createTime:Date.now(),
-                createrId:'1'
+                createTime:Date.now()
             };
-            model.message.push(msg);
+            model.messages.push(msg);
             res.send(true);
         }
         else {
@@ -144,8 +143,9 @@ app.use("/tender/define",function (req, res, next) {
         }
     }
 });
-app.use("/tender/list",function (req, res, next) {
+app.use("/tender",function (req, res, next) {
     var pageIndex=req.body.pageIndex|| 1,pageSize=10;
+    var total = model.tenders.length;
     var purchaseId = req.body.purchaseId;
     if(!purchaseId) {
         res.send(null);
@@ -153,13 +153,11 @@ app.use("/tender/list",function (req, res, next) {
     }
     var list = model.tenders.filter(function (e){
         return e.purchaseId== purchaseId
-    });
-    var total = list.length;
-    list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
+    }).slice((pageIndex-1)*pageSize,pageSize*pageIndex);
     list.forEach(function (e) {
-        model.supplier.forEach(function (s) {
-            if(s.sId== e.supplierId){
-                e.name= s.sShortName;
+        model.suppliers.forEach(function (s) {
+            if(s.id== e.supplierId){
+                e.name= s.name;
             }
         })
     });
@@ -177,33 +175,41 @@ app.use("/message/get",function (req, res, next) {
         res.send(null);
         return;
     }
-    model.message.forEach(function (e){
+    model.messages.forEach(function (e){
         if(e.id== id){
             res.send(e);
         }
     });
 });
-app.use("/message/list",function (req, res, next) {
-    var pageIndex=req.body.pageIndex|| 1,pageSize=10,
-        name=req.body.name;
-    var list = model.message.filter(e=>!name||e.title.indexOf(name)>-1);
-    var total = list.length;
-    list=list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
-    list.forEach(function (e) {
-        model.user.forEach(function (u) {
-            if(u.uId== e.createrId){
-                e.createrName= u.uName;
-            }
-        })
-    });
-    var page={
-        list: list,
-        total: total,
-        totalPage:Math.ceil(total/pageSize)
-    };
-    res.send(page);
-});
+//********************fang********************
+app.use("/notice/get",function (req, res, next) {
+    res.send(model.notics);
+})
+app.use("/notice/add",function (req, res, next) {
+    req.body.id=model.notics.length+1;
+    model.notics.push(req.body)
+    console.log(req.body);
+    res.send(model.notics);
+})
+app.use("/notice/updata",function (req, res, next) {
+    for (let i in model.notics){
+        if(req.body.id===model.notics[i].id){
+            model.notics[i]=req.body;
+        }
+    }
+    console.log(req.body);
+    console.log(model.notics);
+})
 
+app.use("/gateway_notice/add",function (req, res, next) {
+    req.body.id=model.gateway_notices.length+1;
+    model.gateway_notices.push(req.body)
+    console.log(req.body);
+})
+app.use("/gateway_notices/get",function (req, res, next) {
+    res.send(model.gateway_notices);
+})
+//********************fang********************
 app.use("/supplier/add",function (req,res,next) {
     model.supplier.push({
         "sFullName": "完全正确科技有限公司",

@@ -26,9 +26,12 @@
                     :file-list="fileList">
                 <el-button size="small" type="primary" style="margin-top: 30px">上传附件</el-button>
             </el-upload>
+            <el-form-item label="截止时间" prop="endtime" style="width: 300px">
+                <el-input v-model="ruleForm.endtime"></el-input>
+            </el-form-item>
             <el-form-item style="margin-left: 400px">
-                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button type="primary" @click=submitForm(ruleForm)>提交</el-button>
+                <el-button @click=resetForm(ruleForm)>重置</el-button>
             </el-form-item>
         </el-form>
     </section>
@@ -47,6 +50,9 @@
     import 'tinymce/plugins/wordcount'
     import 'tinymce/plugins/colorpicker'
     import 'tinymce/plugins/textcolor'
+    import util from "../../common/js/util";
+    import {  addNotice} from '../../api/api';
+
     export default {
         name: "AddNotice",
         data() {
@@ -64,10 +70,10 @@
                 },
                 rules: {
                     name: [
-                        { required: true, message: '请输入公告名称', trigger: 'blur' },
+                        {required: true, message: '请输入公告名称', trigger: 'blur'},
                     ],
                     noticeType: [
-                        { required: true, message: '请选择公告类型', trigger: 'change' }
+                        {required: true, message: '请选择公告类型', trigger: 'change'}
                     ]
                 },
                 tinymceHtml: '请输入内容',
@@ -85,14 +91,27 @@
         },
         methods: {
             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        console.log(this.tinymceHtml);
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+                let resnoticedata = {
+                    "name": formName.name,
+                    "type": formName.noticeType,
+                    "creater": "张某某",
+                    "time": util.formatDate.format(new Date(), "yyyy-MM-dd hh:mm"),
+                    reviewStatus: '审核中',
+                    endtime:formName.endtime
+                };
+                console.log(resnoticedata);
+                addNotice(resnoticedata);
+                this.$router.push({path: '/noticeManage'});
+                // this.$refs[formName].validate((valid) => {
+                //
+                //     if (valid) {
+                //
+                //         console.log(this.tinymceHtml);
+                //     } else {
+                //         console.log('error submit!!');
+                //         return false;
+                //     }
+                // });
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
@@ -110,7 +129,7 @@
                 return this.$confirm(`确定移除 ${ file.name }？`);
             }
         },
-        mounted () {
+        mounted() {
             tinymce.init({})
         },
         components: {Editor}
