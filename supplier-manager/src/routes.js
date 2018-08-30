@@ -18,6 +18,7 @@ import AddNotice from './views/manage/AddNotice.vue'
 import AddDemand from './views/purchase/AddDemand.vue'
 import AddDemandNotice from './views/purchase/AddDemandNotice.vue'
 import AddAccount from  './views/account/AddAccount.vue'
+import ReviewInfo from './views/review/ReviewInfo'
 
 
 import Main from './views/Main.vue'
@@ -119,6 +120,18 @@ let routes = [
         leaf:true,
         children:[
             {path: '/noticeInfo',component:NoticeInfo, name: '公告详情'}
+        ]
+    },
+
+    {
+        path: '/',
+        component: Home,
+        name: '供应商',
+        role: ['admin','user'],
+        hidden: true,
+        leaf:true,
+        children:[
+            {path: '/reviewInfo',component:ReviewInfo, name: '审核供应商'}
         ]
     },
     {

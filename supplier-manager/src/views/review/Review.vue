@@ -44,7 +44,9 @@
             </el-table-column>
             <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button size="small" type="success">详情</el-button>
+                    <router-link :to="{path:'/reviewInfo',query: {supplier: scope.row}}">
+                        <el-button size="small" type="success">详情</el-button>
+                    </router-link>
                     <el-button type="danger" size="small">删除</el-button>
                 </template>
             </el-table-column>

@@ -65,7 +65,7 @@
                 </el-form-item>
             </el-col>
             <el-col :span="7">
-                <el-form-item label="确认密码" prop="confirmPassword" style="width: 380px;margin-left: 390px">
+                <el-form-item label="确认密码" prop="confirmPassword" >
                     <el-input type="password" v-model="ruleForm.confirmPassword"></el-input>
                 </el-form-item>
             </el-col>
@@ -347,11 +347,9 @@
                             this.showForm1 = false;
                             this.showForm2 = true;
                         }else if (this.showForm2){
-                            // register(this.ruleForm).then(data => {
-                            //     console.log(data);
-                            // });
                             supplierRegister(this.ruleForm).then(data => {
                                 console.log(data);
+                                this.$router.push('/');
                             })
                         }
                     } else {

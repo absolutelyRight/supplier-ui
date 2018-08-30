@@ -278,6 +278,11 @@ app.use("/supplier/add",function (req,res,next) {
     res.send(req.body);
 })
 
+app.use("/supplier/review",function (req,res,next) {
+    model.supplier[2].alreadyReview="1";
+    res.send(req.body);
+})
+
 app.use("/supplier/get",function (req,res,next) {
     res.send(model.supplier);
 })

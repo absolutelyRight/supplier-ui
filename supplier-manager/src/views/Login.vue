@@ -51,20 +51,9 @@
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
-              this.logining = false;
-              //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
-                this.$message({
-                  message: msg,
-                  type: 'error'
-                });
-              } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/' });
-              }
-            });
+              var user = {name:loginParams.username}
+              sessionStorage.setItem('user', JSON.stringify(user));
+              this.$router.push({ path: '/' });
           } else {
             console.log('error submit!!');
             return false;
