@@ -13,12 +13,14 @@ export const supplierRegister = params => { return instance.post(`manager/suppli
 export const getSuppliersList = params => { return instance.post(`manager/supplier/get`, {}).then(res => res.data); };
 export const requestLogin = params => { return axios.get(`/static/user.json`, {}); };
 export const register = params => { return axios.post(`${base}/supplier/register`,params).then(res => res.data);};
-
+export const getNotices = params => {return axios.post(`manager/notice/get`,{ params: params });};
 export const addTender = params => { return axios.post(`${process.env.API_ROOT}tender/add`, params).then(res => res.data); };
 
 export const getMessage = params => { return axios.post(`${process.env.API_ROOT}message/get`, params).then(res => res.data); };
 
 export const getMessageList = params => { return axios.post(`${process.env.API_ROOT}message/list`, params).then(res => res.data); };
+export const supplierTender = params => { return axios.post(`manager/tender/add`, params).then(res => res.data); };
+export const getNoticeId = params =>{ return axios.post(`manager/notice/getid`, params).then(res => res.data); };
 
 // export const getUserList = params => { return axios.get(`${base}/user/list`, { params: params }); };
 //

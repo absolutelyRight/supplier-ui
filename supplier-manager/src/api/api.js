@@ -25,6 +25,7 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 
 export const getNotices = params => {return axios.post(`manager/notice/get`,{ params: params });};
+export const getNoticeId = params =>{ return axios.post(`manager/notice/getid`, params).then(res => res.data); };
 
 export const addNotice = params => {return axios.post(`manager/notice/add`,params );};
 

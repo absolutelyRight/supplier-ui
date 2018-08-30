@@ -101,16 +101,6 @@
                         time:"2018-7-26 23:21"
                     },
                     {
-                        id:'2',
-                        name:"品高XX采购公告",
-                        type:"硬件服务",
-                        creator: '老王',
-                        tenderType: '公开招标',
-                        createDepartment: '品高广州/云产品中心/大数据部',
-                        status:"审核中",
-                        time:"2018-7-26 23:21"
-                    },
-                    {
                         id:'1',
                         name:"品高XX采购公告",
                         type:"软件服务",
