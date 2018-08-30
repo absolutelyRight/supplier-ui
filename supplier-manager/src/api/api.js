@@ -3,7 +3,7 @@ let base = '';
 var instance = axios.create({
     headers: {'content-type': 'application/x-www-form-urlencoded'}
 });
-export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
+export const requestLogin = params => { return axios.post(`manager/login`, params).then(res => res.data); };
 
 export const testApi = params => { return instance.post(`manager/fang/get`, {}).then(res => res.data); };
 

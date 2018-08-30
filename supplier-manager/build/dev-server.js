@@ -67,7 +67,22 @@ app.use(bodyParser.json());//使用bodyparser并配置其参数
 app.use(bodyParser.urlencoded({ extended: false }));//使用bodyparser并配置其参数
 
 app.use(staticPath, express.static('./static'))
-
+app.use('/login', function (req, res, next) {
+    let {username, password} = req.body;
+    let user = null;
+    let hasUser = model.user.some(u => {
+        if (u.uAccount === username && u.uPassword === password) {
+            user = JSON.parse(JSON.stringify(u));
+            delete user.password;
+            return true;
+        }
+    });
+    if (hasUser) {
+        res.send({ code: 200, msg: '请求成功', user });
+    } else {
+        res.send({ code: 500, msg: '账号或密码错误' });
+    }
+});
 app.use("/fang/add",function (req, res, next) {
     console.log(req.body);
     model.user.push(req.body);
@@ -129,13 +144,14 @@ app.use("/tender/define",function (req, res, next) {
             purchase.definedSupplierId= t.supplierId;
 
             var msg={
-                id:model.messages.length,
+                id:model.message.length+1+'',
                 supplierId:t.supplierId,
                 title:'中标通知',
                 content:`您已中标【${purchase.name}】采购项目，请等待平台与您联系`,
-                createTime:Date.now()
+                createTime:Date.now(),
+                createrId:'1'
             };
-            model.messages.push(msg);
+            model.message.push(msg);
             res.send(true);
         }
         else {
@@ -143,9 +159,8 @@ app.use("/tender/define",function (req, res, next) {
         }
     }
 });
-app.use("/tender",function (req, res, next) {
+app.use("/tender/list",function (req, res, next) {
     var pageIndex=req.body.pageIndex|| 1,pageSize=10;
-    var total = model.tenders.length;
     var purchaseId = req.body.purchaseId;
     if(!purchaseId) {
         res.send(null);
@@ -153,11 +168,13 @@ app.use("/tender",function (req, res, next) {
     }
     var list = model.tenders.filter(function (e){
         return e.purchaseId== purchaseId
-    }).slice((pageIndex-1)*pageSize,pageSize*pageIndex);
+    });
+    var total = list.length;
+    list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
     list.forEach(function (e) {
-        model.suppliers.forEach(function (s) {
-            if(s.id== e.supplierId){
-                e.name= s.name;
+        model.supplier.forEach(function (s) {
+            if(s.sId== e.supplierId){
+                e.name= s.sShortName;
             }
         })
     });
