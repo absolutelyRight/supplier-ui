@@ -18,7 +18,7 @@
                 <el-col :span="14" style="margin-right: 10px;margin-left: 13px"><div class="grid-content">
                     <el-tabs type="border-card" @tab-click="tabClick">
                         <el-tab-pane label="招标公告">
-                            <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
+                            <el-collapse v-model="activeNames">
                                 <el-collapse-item title="品高软件服务器采购招标公告" name="1">
                                     <div>品高软件近期需采购服务器若干</div>
                                     <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
@@ -48,7 +48,7 @@
                             </el-collapse>
                         </el-tab-pane>
                         <el-tab-pane label="中标公告">
-                            <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
+                            <el-collapse v-model="activeNames">
                                 <el-collapse-item title="关于鼎兴电子中标品高软件服务器采购项目的公告" name="1">
                                     <div>关于鼎兴电子中标品高软件服务器采购项目的公告</div>
                                     <div><el-button  size="small" type="text" style="float: right" @click="openInfo()">查看详情</el-button></div>
@@ -77,15 +77,15 @@
                             </el-collapse>
                         </el-tab-pane>
                         <el-tab-pane label="通知">角色管理</el-tab-pane>
-                        <router-link :to="{path:'/noticeInformation',query: {noticeType: informationType}}">
-                            <a href="#" style="float: right">更多</a>
+                        <router-link :to="{path:'/noticeInformation',query: {noticeType: informationType}}" class="more-link">
+                            更多&gt;&gt;
                         </router-link>
                     </el-tabs>
                 </div></el-col>
                 <el-col :span="9" style="margin-left: 10px"><div class="grid-content bg-purple">
                     <el-tabs type="border-card" v-if=this.isLogin>
                         <el-tab-pane label="采购公告">
-                            <el-collapse v-model="activeNames" style="height: 220px;overflow-y: auto;">
+                            <el-collapse v-model="activeNames">
                                 <el-collapse-item title="品高软件服务器采购招标公告" name="7">
                                     <div>品高软件近期需采购服务器若干</div>
                                     <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
@@ -114,8 +114,8 @@
                                 </el-collapse-item>
                             </el-collapse>
                         </el-tab-pane>
-                        <router-link :to="{path:'/procurementNotice'}">
-                            <a href="#" style="float: right">更多</a>
+                        <router-link :to="{path:'/procurementNotice'}" class="more-link">
+                            更多&gt;&gt;
                         </router-link>
                     </el-tabs>
                     <el-form v-if=!this.isLogin :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
@@ -213,8 +213,8 @@
                 informationType: '招标公告',
                 logining: false,
                 ruleForm2: {
-                    account: 'admin',
-                    checkPass: 'admin'
+                    account: '',
+                    checkPass: ''
                 },
                 rules2: {
                     account: [
@@ -248,7 +248,7 @@
                             console.log(data);
                             console.log(loginParams);
                             var flag = false;
-                            for (var i = 0;i<data.length;i++){
+                            for (var i = 0;i<data.length;i++){console.log(data[i],loginParams)
                                 if (data[i].sEmailUrl === loginParams.username && data[i].confirmPassword === loginParams.password){
                                     if (data[i].alreadyReview === "1"){
                                         sessionStorage.setItem('user',  JSON.stringify(data[i]));
@@ -319,13 +319,12 @@
         min-height: 36px;
     }
     .login-container {
-        border-radius: 5px;
         background-clip: padding-box;
         margin: auto;
         padding: 20px 22% 15px 22%;;
         background: #fff;
         border: 1px solid #eaeaea;
-        box-shadow: 0 0 25px #cac6c6;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
         .title {
             margin: 0px auto 20px auto;
             text-align: center;
@@ -334,5 +333,11 @@
         .remember {
             margin: 0px 0px 10px 0px;
         }
+    }
+    .more-link{
+        float: right;
+        padding-top: 14px;
+        text-decoration: none;
+        color:#409EFF
     }
 </style>

@@ -9,6 +9,7 @@ import DemandExamine from './views/purchase/DemandExamine.vue'
 import DemandInit from './views/purchase/DemandInit.vue'
 import DemandNotice from './views/purchase/DemandNotice.vue'
 import EvaluateManager from './views/purchase/EvaluateManager.vue'
+import NoticeReview from './views/manage/NoticeReview.vue'
 import NoticeInfo from './views/manage/NoticeInfo.vue'
 import TenderManager from './views/purchase/TenderManager.vue'
 import TenderInfo from './views/purchase/TenderInfo.vue'
@@ -109,6 +110,17 @@ let routes = [
         children: [
             { path: '/supplierManage', component: SupplierManage, name: '供应商管理' },
             { path: '/noticeManage', component: NoticeManage, name: '公告管理' },
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '公告审核',
+        role: ['admin','user'],
+        hidden: true,
+        leaf:true,
+        children:[
+            {path: '/noticeReview/:id',component:NoticeReview, name: '公告详情'}
         ]
     },
     {

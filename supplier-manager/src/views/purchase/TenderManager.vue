@@ -72,7 +72,7 @@
         <el-pagination
                 small
                 layout="prev, pager, next"
-                :total="50"
+                :total="total"
                 style="float: right"
         >
         </el-pagination>
@@ -143,7 +143,6 @@
 
 
                 ],
-                total: 0,
                 page: 1,
                 listLoading: false,
                 sels: [],//列表选中列
@@ -183,6 +182,12 @@
 
             }
         },
+        computed:{
+            total(){
+                return this.notices.length;
+            }
+        }
+        ,
         methods: {
             handleCurrentChange(val) {
                 this.page = val;

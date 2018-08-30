@@ -48,7 +48,7 @@ let routes = [
         role: ['admin'],
         iconCls: 'el-icon-message',//图标样式class
         children: [
-            { path: '/notice', component: Notice, name: '消息通知' },
+            { path: '/notice', role: ['admin','user'], component: Notice, name: '消息通知' },
             { path: '/noticeInformation', component: NoticeInformation, name: '公告信息' },
         ]
     },

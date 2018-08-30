@@ -104,7 +104,10 @@
             },
             //获取用户列表
             getUsers() {
-                getMessageList({name:this.filters.name}).then(data=>{
+                var user = sessionStorage.getItem('user');
+                if(user)
+                user = JSON.parse(user);
+                getMessageList({name:this.filters.name,supplierId:user&&user.sId}).then(data=>{
                     if(data){
                         this.notices=[];
                         data.list.forEach(e=>{

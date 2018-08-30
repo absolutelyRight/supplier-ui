@@ -229,8 +229,8 @@ app.use("/message/get",function (req, res, next) {
 });
 app.use("/message/list",function (req, res, next) {
     var pageIndex=req.body.pageIndex|| 1,pageSize=10,
-        name=req.body.name;
-    var list = model.message.filter(e=>!name||e.title.indexOf(name)>-1);
+        name=req.body.name,supplierId=req.body.supplierId;
+    var list = model.message.filter(e=>(!name||e.title.indexOf(name)>-1)&&(supplierId&&supplierId==e.supplierId));
     var total = list.length;
     list=list.slice((pageIndex-1)*pageSize,pageSize*pageIndex);
     list.forEach(function (e) {
@@ -266,6 +266,26 @@ app.use("/notice/updata",function (req, res, next) {
     console.log(req.body);
     console.log(model.notics);
 })
+app.use("/notice/pass",function (req, res, next) {
+    if(model.notics.some(n=>{
+        if(n.id==req.body.id){
+            n.reviewStatus="审核通过";
+            return true;
+        }
+    }))
+    res.send(true);
+    else res.send(false);
+})
+app.use("/notice/reject",function (req, res, next) {
+    if(model.notics.some(n=>{
+        if(n.id==req.body.id){
+            n.reviewStatus="审核不通过";
+            return true;
+        }
+    }))
+    res.send(true);
+    else res.send(false);
+})
 
 app.use("/gateway_notice/add",function (req, res, next) {
     req.body.id=model.gateway_notices.length+1;
@@ -278,6 +298,7 @@ app.use("/gateway_notices/get",function (req, res, next) {
 //********************fang********************
 app.use("/supplier/add",function (req,res,next) {
     model.supplier.push({
+        sId:model.supplier.length+1+'',
         "sFullName": "完全正确科技有限公司",
         "sFax": "",
         "sShortName": '完全正确',

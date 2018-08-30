@@ -38,7 +38,7 @@
 									v-for="child in item.children"
 									:index="child.path"
 									:key="child.path"
-									v-if="!child.hidden">
+									v-if="!child.hidden&& (!child.role||isContained(role,child.role))">
 								{{child.name}}
 							</el-menu-item>
 						</el-submenu>

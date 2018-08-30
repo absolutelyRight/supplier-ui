@@ -28,6 +28,10 @@ export const getNotices = params => {return axios.post(`manager/notice/get`,{ pa
 
 export const addNotice = params => {return axios.post(`manager/notice/add`,params );};
 
+export const passNoticeReview = params => {return axios.post(`manager/notice/pass`,params ).then(res => res.data);};
+
+export const rejectNoticeReview = params => {return axios.post(`manager/notice/reject`,params ).then(res => res.data);};
+
 export const updataNotice = params => {return axios.post(`manager/notice/updata`,params );};
 
 export const getTenderList = params => {return axios.post(`${process.env.API_ROOT}tender/list`, params).then(res => res.data); };

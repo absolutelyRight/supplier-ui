@@ -7,7 +7,7 @@
                     <el-button type="primary">添加公告</el-button>
                 </router-link>
                 <el-form-item style="float: right">
-                    <el-button type="primary" v-on:click="getUsers">查询</el-button>
+                    <el-button type="primary" v-on:click="getnotices">查询</el-button>
                 </el-form-item>
                 <el-form-item style="float: right">
                     <el-input v-model="filters.name" placeholder="输入关键字查询"></el-input>
@@ -41,15 +41,15 @@
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="openInfo(scope.row.info)" size="small">查看详情</el-button>
+                    <el-button type="text" @click="openInfo(scope.row.id)" size="small">查看详情</el-button>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" min-width="250">
+            <!--<el-table-column label="操作" min-width="250">
                 <template slot-scope="scope">
                     <el-button type="danger" size="small" @click="handleOn(scope.$index, scope.row)">通过</el-button>
                     <el-button type="primary" size="small" @click="handleOff(scope.$index, scope.row)">不通过</el-button>
                 </template>
-            </el-table-column>
+            </el-table-column>-->
         </el-table>
 
         <!--工具条-->
@@ -57,7 +57,7 @@
         <el-pagination
                 small
                 layout="prev, pager, next"
-                :total="50"
+                :total="total"
                 style="float: right"
         >
         </el-pagination>
@@ -121,16 +121,20 @@
                 this.page = val;
                 this.getUsers();
             },
-            getnotices() {
+            getnotices() {console.log(1,this.filters.name);
                 getNotices().then(data => {
                     console.log(data.data);
-                    for (let i in data.data) {
-                        if (data.data[i].reviewStatus == "审核中") {
-                            this.notices.push(data.data[i])
-                        }
+                this.notices=[];
+                for (let i in data.data) {
+                    var dataI = data.data[i];
+                    if (dataI.reviewStatus == "审核中"&&(!this.filters.name||dataI.name.indexOf(this.filters.name)>-1)) {
+                        this.notices.push(dataI)
                     }
-                    //this.notices = data.data
-                }).catch(function (response) {
+                }
+                this.total=this.notices.length;
+                //this.notices = data.data
+            }).
+                catch(function (response) {
                     console.log(response);
                 });
             },
@@ -155,7 +159,7 @@
             handleOn: function (index, row) {
                 row.reviewStatus = "审核通过";
                 updataNotice(row);
-                this.notices=[];
+                this.notices = [];
                 this.getnotices();
             },
             handleOff: function (index, row) {
@@ -168,23 +172,25 @@
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
-                    //NProgress.start();
-                    let para = {id: row.id};
-                    removeUser(para).then((res) => {
-                        this.listLoading = false;
-                        //NProgress.done();
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                        this.getUsers();
-                    });
-                }).catch(() => {
-
+                //NProgress.start();
+                let para = {id: row.id};
+                removeUser(para).then((res) => {
+                    this.listLoading = false;
+                //NProgress.done();
+                this.$message({
+                    message: '删除成功',
+                    type: 'success'
                 });
+                this.getUsers();
+            })
+                ;
+            }).
+                catch(() => {}
+                )
+                ;
             },
-            openInfo(info) {
-                this.$router.push({path: '/noticeInfo'});
+            openInfo(id) {
+                this.$router.push({path: '/noticeReview/'+id});
             },
             selsChange: function (sels) {
                 this.sels = sels;

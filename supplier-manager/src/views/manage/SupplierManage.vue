@@ -60,7 +60,7 @@
         <el-pagination
                 small
                 layout="prev, pager, next"
-                :total="50"
+                :total="total"
                 style="float: right"
         >
         </el-pagination>
@@ -300,6 +300,11 @@
                 selectedOptions2: [],
                 listLoading: false,
             };
+        },
+        computed:{
+            total(){
+                return this.suppliers.length;
+            }
         },
         methods: {
             handleChange(value) {
