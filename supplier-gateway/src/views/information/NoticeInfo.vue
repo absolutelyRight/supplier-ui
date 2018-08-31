@@ -3,6 +3,26 @@
         <!--工具条-->
         <div style="padding-top: 100px;
                     padding-bottom: 20px;" v-html="noticeInfo"></div>
+
+        <el-row>
+            <el-col :span="2">
+                <el-upload
+                        class="upload-demo"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :before-remove="beforeRemove"
+                        multiple
+                        :limit="3"
+                        :on-exceed="handleExceed"
+                        :file-list="fileList">
+                    <el-button size="small" type="primary">上传附件</el-button>
+                </el-upload>
+            </el-col>
+            <el-col :span="3">
+                <el-button type="primary" size="small" @click="download" plain>下载附件</el-button>
+            </el-col>
+        </el-row>
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true">
                 <el-form-item>
@@ -41,6 +61,9 @@
             goBack() {
                 this.$router.back(-1);
             },
+            download() {
+                window.location.href = 'http://localhost:8084/static/公司简介.zip';
+            },
             tender() {
                 var user = JSON.parse(sessionStorage.getItem('user'));
                 let tender = {
@@ -48,8 +71,8 @@
                     purchaseId: this.notice.id,
                     supplier: user,
                     purchase: this.notice,
-                    status:'未选中',
-                    price:'',
+                    status: '未选中',
+                    price: '',
                     time: '2018/08/31'
                 };
                 supplierTender(tender);
@@ -60,9 +83,7 @@
             // console.log(this.$router.query.id)
             // this.isbuy=this.$router.params.isbuy
             if (this.$route.params.id) {
-                console.log("*******************");
-                console.log(this.$route.params.id);
-                getNoticeId({id:this.$route.params.id}).then(data => {
+                getNoticeId({id: this.$route.params.id}).then(data => {
                         console.log(data);
                         this.notice = data;
                         this.noticeInfo = this.notice.noticeInfo;
