@@ -100,15 +100,18 @@
                 let resnoticedata = {
                     "name": formName.name,
                     "type": formName.noticeType,
-                    "creater": "张某某",
+                    creator: '老王',
+                    tenderType: '邀请招标',
+                    createDepartment: '品高广州/云产品中心/大数据部',
+                    status:"已截止",
                     "time": util.formatDate.format(new Date(), "yyyy-MM-dd"),
                     reviewStatus: '审核中',
                     noticeInfo:this.tinymceHtml,
-                    endtime:util.formatDate.format(this.ruleForm.endtime, "yyyy-MM-dd")
+                    endtime:util.formatDate.format(this.ruleForm.endtime, "yyyy/MM/dd")
                 };
                 console.log(resnoticedata);
                 addNotice(resnoticedata);
-                this.$router.push({path: '/noticeManage'});
+                this.$router.back(-1);
                 // this.$refs[formName].validate((valid) => {
                 //
                 //     if (valid) {

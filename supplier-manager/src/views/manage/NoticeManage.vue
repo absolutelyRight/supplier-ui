@@ -76,7 +76,6 @@
 </template>
 
 <script>
-    import {removeUser} from '../../api/api';
     import {getNotices} from '../../api/api';
     import {updataNotice} from '../../api/api';
     export default {
@@ -194,8 +193,8 @@
                 )
                 ;
             },
-            openInfo(info) {
-                let path='/noticeInfo/'+info.id;
+            openInfo(id) {
+                let path='/noticeInfo/'+id;
                 this.$router.push({path:path});
             },
             selsChange: function (sels) {

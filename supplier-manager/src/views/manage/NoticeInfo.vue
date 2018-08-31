@@ -4,8 +4,8 @@
         <div style="padding-top: 100px;
                     padding-bottom: 20px;" v-html="noticeInfo"></div>
         <el-button type="primary" @click="download" plain >下载附件</el-button>
-        <el-button type="success" @click="agree" plain>审核通过</el-button>
-        <el-button type="danger"  @click="refuse" plain>审核不通过</el-button>
+        <el-button type="success" v-if="notice.reviewStatus== '审核中'" @click="agree" plain>审核通过</el-button>
+        <el-button type="danger" v-if="notice.reviewStatus== '审核中'"  @click="refuse" plain>审核不通过</el-button>
         <el-button type="primary" @click="refuse" plain>返回</el-button>
     </section>
 </template>

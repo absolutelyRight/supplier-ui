@@ -6,7 +6,7 @@
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true">
                 <el-form-item>
-                    <el-button type="primary" v-show="this.$route.params.id" v-on:click="tender">投标</el-button>
+                    <el-button type="primary" v-show="notice.type=='采购公告'" v-on:click="tender">投标</el-button>
                     <el-button type="primary" v-on:click="goBack">返回</el-button>
                 </el-form-item>
             </el-form>
@@ -42,12 +42,14 @@
                 this.$router.back(-1);
             },
             tender() {
-                var user = sessionStorage.getItem('user');
+                var user = JSON.parse(sessionStorage.getItem('user'));
                 let tender = {
                     supplierId: user.sId,
                     purchaseId: this.notice.id,
                     supplier: user,
                     purchase: this.notice,
+                    status:'未选中',
+                    price:'',
                     time: '2018/08/31'
                 };
                 supplierTender(tender);

@@ -16,7 +16,7 @@
         <el-table :data="notices" highlight-current-row v-loading="listLoading" style="width: 100%">
             <el-table-column prop="name" label="公告名称" width="300">
             </el-table-column>
-            <el-table-column prop="time" label="截止日期" min-width="200">
+            <el-table-column prop="endtime" label="截止日期" min-width="200">
             </el-table-column>
             <el-table-column
                     prop="type"
@@ -42,7 +42,7 @@
             </el-table-column>
             <el-table-column label="详情" min-width="200">
                 <template slot-scope="scope">
-                    <el-button size="small" type="text" @click="openInfo(scope.row.info)">查看详情</el-button>
+                    <el-button size="small" type="text" @click="openInfo(scope.row.id)">查看详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-    import { removeUser } from '../../api/api';
+    import { getNotices } from '../../api/api';
 
     export default {
         data() {
@@ -150,10 +150,18 @@
             },
             //获取用户列表
             getUsers() {
-
+                this.notices=[];
+                getNotices().then(data=>{console.log(data)
+                data.data.filter(n=>{
+                    return n.type=='采购公告'&& n.reviewStatus=='审核通过';
+                }).forEach(n=>{
+                    n.status= new Date(n.endtime)>new Date()?'招标中':'已截止';
+                    this.notices.push(n)
+                })
+                })
             },
-            openInfo(info) {
-                this.$router.push({path: '/noticeInfo'});
+            openInfo(id) {
+                this.$router.push({path: '/noticeInfo/'+id});
             },
             formatter(row, column) {
                 return row.address;

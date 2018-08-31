@@ -11,7 +11,8 @@ exports.message = [{
     title: '中标通知',
     content: '您已中标【xxx采购项目】，请等待平台与您联系',
     createTime: '2018/02/03',
-    createrId: '1'
+    createrId: '1',
+    type:''
 }];
 
 exports.purchase = [{
@@ -97,7 +98,7 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        noticeInfo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核中',
     },
     {
@@ -107,7 +108,7 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        noticeInfo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核中'
     },
     {
@@ -117,7 +118,7 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        noticeInfo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核中'
     },
     {
@@ -127,7 +128,7 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        noticeInfo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核中'
     },
     {
@@ -137,7 +138,7 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        noticeInfo: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核未通过'
     },
     {
@@ -147,7 +148,6 @@ exports.notics = [
         creater: "完全正确",
         time: "2018-7-26 22:55",
         endtime: "2018-9-1",
-        info: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         reviewStatus: '审核通过',
         noticeInfo: "宇宙最强"
     },

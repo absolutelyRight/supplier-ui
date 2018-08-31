@@ -14,7 +14,7 @@
 
         <!--列表-->
         <el-table :data="notices" highlight-current-row v-loading="listLoading" style="width: 100%">
-            <el-table-column prop="name" label="公告名" width="200">
+            <el-table-column prop="name" label="公告名" width="280">
             </el-table-column>
             <el-table-column prop="creator" label="发布人" width="100">
             </el-table-column>
@@ -23,7 +23,7 @@
             <el-table-column
                     prop="tenderType"
                     label="招标类型"
-                    width="150"
+                    width="120"
                     :filters="[{ text: '公开招标', value: '公开招标' }, { text: '邀请招标', value: '邀请招标' }, { text: '询价招标', value: '询价招标' }, { text: '单一招标', value: '单一招标' }]"
                     :filter-method="filterTenderType"
                     filter-placement="bottom-end">
@@ -34,7 +34,7 @@
             <el-table-column
                     prop="type"
                     label="采购类型"
-                    width="150"
+                    width="120"
                     :filters="[{ text: '软件服务', value: '软件服务' }, { text: '硬件服务', value: '硬件服务' }, { text: '外包服务', value: '外包服务' }]"
                     :filter-method="filterTag"
                     filter-placement="bottom-end">
@@ -53,7 +53,7 @@
                     <el-tag :type="scope.row.status === '已提交' ? 'success' : 'primary'" disable-transitions>{{scope.row.status}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="time" label="截至时间" min-width="200">
+            <el-table-column prop="time" label="截至时间" min-width="120">
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-    import { removeUser } from '../../api/api';
+    import { getNotices } from '../../api/api';
 
     export default {
         data() {
@@ -183,15 +183,17 @@
                 this.page = val;
                 this.getUsers();
             },
-            openInfo() {
-                this.$router.push({path: '/noticeInfo'});
+            openInfo(id) {
+                this.$router.push({path: '/noticeInfo/'+id});
             },
             openTender(id){
                 this.$router.push({path: '/supplierTenderManage/'+id});
             },
             //获取用户列表
             getUsers() {
-
+                getNotices().then(data=>{
+                    this.notices=data.data.filter(e=>e.type=="采购公告"&&(!this.filters.name|| e.name.indexOf(this.filters.name)>-1));
+                })
             },
             formatter(row, column) {
                 return row.address;

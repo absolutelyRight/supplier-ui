@@ -94,7 +94,7 @@ app.use("/fang/get",function (req, res, next) {
 app.use("/tender/add",function (req, res, next) {
     var tender = req.body;
     console.log(tender);
-    tender.id=model.tenders[model.tenders.length-1]+1;
+    tender.id=model.tenders.length+1+'';
     model.tenders.push(tender);
     res.send(true);
     return false;
@@ -102,7 +102,7 @@ app.use("/tender/add",function (req, res, next) {
 app.use("/tender/select",function (req, res, next) {
     var purchaseId = req.body.purchaseId;
     var tenderId = req.body.tenderId;
-    var list=model.purchase.filter(function (e) {
+    var list=model.notics.filter(function (e) {
         return e.id==purchaseId;
     });
     if(list.length==0)
@@ -125,7 +125,7 @@ app.use("/tender/select",function (req, res, next) {
 app.use("/tender/define",function (req, res, next) {
     var purchaseId = req.body.purchaseId;
     var tenderId = req.body.tenderId;
-    var list=model.purchase.filter(function (e) {
+    var list=model.notics.filter(function (e) {
         return e.id==purchaseId;
     });
     if(list.length==0)
@@ -287,7 +287,7 @@ app.use("/notice/pass",function (req, res, next) {
 app.use("/notice/reject",function (req, res, next) {
     if(model.notics.some(n=>{
         if(n.id==req.body.id){
-            n.reviewStatus="审核不通过";
+            n.reviewStatus="审核未通过";
             return true;
         }
     }))
