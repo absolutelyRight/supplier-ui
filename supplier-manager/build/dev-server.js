@@ -114,7 +114,7 @@ app.use("/tender/select",function (req, res, next) {
         });
         if(list.length>0) {
             var e=list[0];
-            e.status = 1;
+            e.status = '已选中';
             res.send(true);
         }
         else {
@@ -139,7 +139,7 @@ app.use("/tender/define",function (req, res, next) {
         });
         if(list.length>0) {
             var t=list[0];
-            t.status = 2;
+            t.status = '已确认';
             t.definedTime = definedTime;
             purchase.definedTime = definedTime;
             purchase.definedSupplierId= t.supplierId;

@@ -26,7 +26,7 @@
                     :filter-method="filterStatus"
                     filter-placement="bottom-end">
                 <template slot-scope="scope">
-                    <el-tag :type="scope.row.status === '已提交' ? 'success' : 'primary'" disable-transitions>{{['未选中','已选中','已确认'][scope.row.status]}}</el-tag>
+                    <el-tag :type="scope.row.status === '已提交' ? 'success' : 'primary'" disable-transitions>{{scope.row.status}}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column prop="time" label="投标时间" min-width="200">
@@ -38,7 +38,7 @@
             </el-table-column>
             <el-table-column label="操作" min-width="200">
                 <template slot-scope="scope">
-                    <el-button v-if="!defined||scope.row.status==2" :type="scope.row.status==0?'success':scope.row.status==1?'primary':'text'" size="small" @click="select(scope.row.id)">{{scope.row.status==0?'选择':scope.row.status==1?'确认':'已中标'}}</el-button>
+                    <el-button v-if="!defined||scope.row.status==2" :type="scope.row.status=='未选中'?'success':scope.row.status=='已选中'?'primary':'text'" size="small" @click="select(scope.row.id)">{{scope.row.status=='未选中'?'选择':scope.row.status=='已选中'?'确认':'已中标'}}</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -121,7 +121,7 @@
                         this.tenders=[];
                         data.list.forEach(e=>{
                             this.tenders.push(e);
-                            if(e.status==2){
+                            if(e.status=='已确认'){
                                 this.defined=true;
                             }
                         })
@@ -177,17 +177,17 @@
             select:function(id){
                 var t=this.tenders.filter(e=>e.id==id);
                 t.forEach(e=>{
-                    if(e.status==0){
+                    if(e.status=='未选中'){
                         selectTender({purchaseId:this.$route.params.purchaseId,tenderId:id}).then((success)=>{
                             if(success){
-                                t.forEach(e=>e.status=1);
+                                t.forEach(e=>e.status='已选中');
                             }
                         });
                     }
-                    else if(e.status==1){
+                    else if(e.status=='已选中'){
                          defineTender({purchaseId:this.$route.params.purchaseId,tenderId:id}).then((success)=>{
                              if(success){
-                                 this.tenders.filter(e=>e.id==id).forEach(e=>e.status=2);
+                                 this.tenders.filter(e=>e.id==id).forEach(e=>e.status='已确认');
                                  this.defined=true;
                              }
                          });
