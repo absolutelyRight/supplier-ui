@@ -121,6 +121,7 @@
                         this.tenders=[];
                         data.list.forEach(e=>{
                             this.tenders.push(e);
+                            e.price= e.price+'元';
                             if(e.status=='已确认'){
                                 this.defined=true;
                             }

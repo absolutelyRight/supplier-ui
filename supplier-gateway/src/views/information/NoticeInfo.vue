@@ -25,6 +25,9 @@
         </el-row>
         <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true">
+                <el-form-item label="报价：（元）" v-show="notice.type=='采购公告'">
+                    <el-input v-model.number="price"></el-input>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" v-show="notice.type=='采购公告'" v-on:click="tender">投标</el-button>
                     <el-button type="primary" v-on:click="goBack">返回</el-button>
@@ -43,6 +46,7 @@
         data() {
             return {
                 notice: {},
+                price:0,
                 noticeInfo: "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><strong style=\"margin: 0px; padding: 0px;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">一、招标编号：</span></strong><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">JWC/H-20170816-056</span></p>\n" +
                 "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><strong style=\"margin: 0px; padding: 0px;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">二、项目概况：</span></strong></p>\n" +
                 "<p style=\"margin: 0px; padding: 0px; background-color: #f2f2f2; line-height: 32px; font-size: 15px; color: #333333; font-family: 'Microsoft YaHei', helvetica, verdana, san-serif; background-image: none !important; background-position: initial !important; background-size: initial !important; background-repeat: initial !important; background-attachment: initial !important; background-origin: initial !important; background-clip: initial !important;\"><span style=\"margin: 0px; padding: 0px; font-family: 仿宋; font-size: 16px; background: none !important;\">&nbsp;&nbsp;&nbsp;&nbsp;1.项目地点：江苏建筑职业技术学院内。</span></p>\n" +
@@ -72,7 +76,7 @@
                     supplier: user,
                     purchase: this.notice,
                     status: '未选中',
-                    price: '',
+                    price: this.price,
                     time: '2018/08/31'
                 };
                 supplierTender(tender);
