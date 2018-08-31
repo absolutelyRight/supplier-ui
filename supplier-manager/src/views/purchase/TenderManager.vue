@@ -16,7 +16,7 @@
         <el-table :data="notices" highlight-current-row v-loading="listLoading" style="width: 100%">
             <el-table-column prop="name" label="公告名" width="280">
             </el-table-column>
-            <el-table-column prop="creator" label="发布人" width="100">
+            <el-table-column prop="creater" label="发布人" width="100">
             </el-table-column>
             <el-table-column prop="createDepartment" label="发布部门" width="300">
             </el-table-column>
@@ -53,7 +53,7 @@
                     <el-tag :type="scope.row.status === '已提交' ? 'success' : 'primary'" disable-transitions>{{scope.row.status}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="time" label="截至时间" min-width="120">
+            <el-table-column prop="endtime" label="截至时间" min-width="120">
             </el-table-column>
             <el-table-column label="详情" min-width="100">
                 <template slot-scope="scope">
@@ -192,7 +192,10 @@
             //获取用户列表
             getUsers() {
                 getNotices().then(data=>{
-                    this.notices=data.data.filter(e=>e.type=="采购公告"&&(!this.filters.name|| e.name.indexOf(this.filters.name)>-1));
+                    this.notices=data.data.filter(e=>e.type=="采购公告"&& e.reviewStatus=='审核通过'&&(!this.filters.name|| e.name.indexOf(this.filters.name)>-1));
+                    this.notices.forEach(e=>{
+                        e.status= new Date(e.endtime)>new Date()?'招标中':'已截止';
+                    });
                 })
             },
             formatter(row, column) {

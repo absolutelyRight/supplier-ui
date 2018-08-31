@@ -273,6 +273,7 @@ app.use("/notice/updata",function (req, res, next) {
     }
     console.log(req.body);
     console.log(model.notics);
+    res.send(true);
 })
 app.use("/notice/pass",function (req, res, next) {
     if(model.notics.some(n=>{

@@ -100,7 +100,7 @@
                 let resnoticedata = {
                     "name": formName.name,
                     "type": formName.noticeType,
-                    creator: '老王',
+                    creater: '老王',
                     tenderType: '邀请招标',
                     createDepartment: '品高广州/云产品中心/大数据部',
                     status:"已截止",
